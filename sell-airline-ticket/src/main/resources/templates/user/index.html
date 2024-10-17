@@ -1,10 +1,9 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<html lang="en">
-    <head th:replace="fragments :: meta_css"></head>
+    <head th:replace="user/fragments :: meta_css"></head>
     <body>
         <!--================Header Area =================-->
-        <header th:replace="fragments :: header"></header>
+        <header th:replace="user/fragments :: header"></header>
         <!--================Header Area =================-->
 
         <!--================Banner Area =================-->
@@ -90,7 +89,7 @@
             </div>
         </section>
         <!--================Banner Area =================-->
-        
+
         <!--================ Accomodation Area  =================-->
         <section class="accomodation_area section_gap">
             <div class="container">
@@ -143,10 +142,10 @@
             </div>
         </section>
         <!--================ Accomodation Area  =================-->
-        
+
         <!--================ Facilities Area  =================-->
         <section class="facilities_area section_gap">
-            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">  
+            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
             </div>
             <div class="container">
                 <div class="section_title text-center">
@@ -194,7 +193,7 @@
             </div>
         </section>
         <!--================ Facilities Area  =================-->
-        
+
         <!--================ About History Area  =================-->
         <section class="about_history_area section_gap">
             <div class="container">
@@ -213,7 +212,7 @@
             </div>
         </section>
         <!--================ About History Area  =================-->
-        
+
         <!--================ Testimonial Area  =================-->
         <section class="testimonial_area section_gap">
             <div class="container">
@@ -235,7 +234,7 @@
                                 <a href="#"><i class="fa fa-star-half-o"></i></a>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                     <div class="media testimonial_item">
                         <img class="rounded-circle" th:src="@{/user/image/testtimonial-1.jpg}" alt="">
                         <div class="media-body">
@@ -263,7 +262,7 @@
                                 <a href="#"><i class="fa fa-star-half-o"></i></a>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                     <div class="media testimonial_item">
                         <img class="rounded-circle" th:src="@{/user/image/testtimonial-1.jpg}" alt="">
                         <div class="media-body">
@@ -282,7 +281,7 @@
             </div>
         </section>
         <!--================ Testimonial Area  =================-->
-        
+
         <!--================ Latest Blog Area  =================-->
         <section class="latest_blog_area section_gap">
             <div class="container">
@@ -304,7 +303,7 @@
                                 <a href="#"><h4 class="sec_h4">Low Cost Advertising</h4></a>
                                 <p>Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.</p>
                                 <h6 class="date title_color">31st January,2018</h6>
-                            </div>	
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -320,7 +319,7 @@
                                 <a href="#"><h4 class="sec_h4">Creative Outdoor Ads</h4></a>
                                 <p>Self-doubt and fear interfere with our ability to achieve or set goals. Self-doubt and fear are</p>
                                 <h6 class="date title_color">31st January,2018</h6>
-                            </div>	
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -336,7 +335,7 @@
                                 <a href="#"><h4 class="sec_h4">It S Classified How To Utilize Free</h4></a>
                                 <p>Why do you want to motivate yourself? Actually, just answering that question fully can </p>
                                 <h6 class="date title_color">31st January,2018</h6>
-                            </div>	
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -345,10 +344,10 @@
         <!--================ Recent Area  =================-->
 
         <!--================ start footer Area  =================-->
-        <footer th:replace="fragments :: footer"></footer>
+        <footer th:replace="user/fragments :: footer"></footer>
 		<!--================ End footer Area  =================-->
-        
-        
+
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script th:src="@{/user/js/jquery-3.2.1.min.js}"></script>
@@ -356,7 +355,7 @@
         <script th:src="@{/user/js/bootstrap.min.js}"></script>
         <script th:src="@{/user/vendors/owl-carousel/owl.carousel.min.js}"></script>
         <script th:src="@{/user/js/jquery.ajaxchimp.min.js}"></script>
-        <script th:src="@{/user/js/mail-script.js}"></script>
+<!--        <script th:src="@{/user/js/mail-script.js}"></script>-->
         <script th:src="@{/user/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js}"></script>
         <script th:src="@{/user/vendors/nice-select/js/jquery.nice-select.js}"></script>
         <script th:src="@{/user/js/mail-script.js}"></script>
