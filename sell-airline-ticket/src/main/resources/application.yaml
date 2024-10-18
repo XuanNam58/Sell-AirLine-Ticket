@@ -1,1 +1,11 @@
-spring.application.name=sell-airline-ticket
+#spring.application.name=sell-airline-ticket
+server:
+  port: 8080
+  servlet:
+    context-path: /flight-booking
+spring:
+  datasource:
+    url: "jdbc:sqlserver://;serverName=localhost;databaseName=FLIGHTBOOKING;encrypt=true;trustServerCertificate=true"
+    driver-class-name: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    username: sa
+    password: 123456
