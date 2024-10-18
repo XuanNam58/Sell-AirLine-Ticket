@@ -8,4 +8,4 @@ spring:
     url: "jdbc:sqlserver://;serverName=localhost;databaseName=FLIGHTBOOKING;encrypt=true;trustServerCertificate=true"
     driver-class-name: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
     username: sa
-    password: 12
+    password: 123456
