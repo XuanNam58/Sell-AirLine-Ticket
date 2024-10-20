@@ -22,5 +22,5 @@ public class Seat {
     Class aClass;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PLANEID")
-    String planeID;
+    Plane plane;
 }
