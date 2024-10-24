@@ -13,13 +13,14 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Class")
-public class Class {
+@Table(name = "Service")
+public class Service {
     @Id
-    @Column(name = "ClassID", length = 10, nullable = false)
-    String classID;
-    @Column(name = "ClassName", length = 10, nullable = true)
-    String className;
-    @Column(name = "Price", nullable = false)
-    Float price;
+    @Column(name = "ServiceID", length = 10)
+    String serviceID;
+    @Column(name = "ServiceName", length = 10)
+    String serviceName;
+    @Column(name = "Price")
+    String price;
+
 }

@@ -10,16 +10,16 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "ACCOUNT")
+@Table(name = "Account")
 public class Account {
     @Id
-    @Column(name = "USERNAME", length = 20, nullable = false)
+    @Column(name = "Username", length = 20, nullable = false)
     String username;
-    @Column(name = "PASSWORD", length = 30, nullable = false)
+    @Column(name = "Password", length = 30, nullable = false)
     String password;
     @OneToOne
-    @JoinColumn(name = "USERID", referencedColumnName = "USERID")
+    @JoinColumn(name = "UserID", referencedColumnName = "USERID")
     User user;
-    @Column(name = "STATUS")
+    @Column(name = "Status")
     Boolean status;
 }

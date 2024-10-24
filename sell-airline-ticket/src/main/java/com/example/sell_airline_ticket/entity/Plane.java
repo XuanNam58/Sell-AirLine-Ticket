@@ -13,11 +13,11 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "PLANE")
+@Table(name = "Plane")
 public class Plane {
     @Id
-    @Column(name = "PLANEID", length = 10, nullable = false)
+    @Column(name = "PlaneID", length = 10, nullable = false)
     String planeID;
-    @Column(name = "NAME", length = 10, nullable = false)
+    @Column(name = "Name", length = 10, nullable = false)
     String name;
 }
