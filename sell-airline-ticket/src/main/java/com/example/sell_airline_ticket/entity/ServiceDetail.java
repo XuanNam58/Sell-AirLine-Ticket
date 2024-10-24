@@ -10,17 +10,17 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Seat")
-public class Seat {
+@Table(name = "ServiceDetail")
+@IdClass(ServiceDetailID.class)
+public class ServiceDetail {
     @Id
-    @Column(name = "SeatID", length = 10, nullable = false)
-    String seatID;
-    @Column(name = "SeatNum", nullable = true)
-    Integer seatNum;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ClassID")
-    Class aClass;
+    @JoinColumn(name = "TicketID")
+    Ticket ticket;
+
+    @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PlaneID")
-    Plane plane;
+    @JoinColumn(name = "ServiceID")
+    Service service;
+
 }

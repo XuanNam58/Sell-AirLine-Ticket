@@ -10,32 +10,29 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "USER")
+@Table(name = "User")
 public class User {
 
     @Id
-    @Column(name = "USERID", length = 10, nullable = false)
+    @Column(name = "UserID", length = 10, nullable = false)
     String userID;
 
-    @Column(name = "FIRSTNAME", length = 20, nullable = false)
-    String firstName;
+    @Column(name = "Name", length = 50, nullable = false)
+    String name;
 
-    @Column(name = "LASTNAME", length = 50, nullable = false)
-    String lastName;
-
-    @Column(name = "PHONENUM", length = 10, nullable = true)
+    @Column(name = "PhoneNum", length = 10, nullable = true)
     String phoneNum;
 
-    @Column(name = "EMAIL", length = 50, nullable = true)
+    @Column(name = "Email", length = 50, nullable = true)
     String email;
 
-    @Column(name = "CITIZENID", length = 12, nullable = false)
+    @Column(name = "CitizenID", length = 12, nullable = false)
     String citizenID;
 
-    @Column(name = "CREDITNUM", length = 20, nullable = true)
+    @Column(name = "CreditNum", length = 20, nullable = true)
     String creditNum;
 
-    @Column(name = "STATUS", nullable = false)
+    @Column(name = "Status", nullable = false)
     Boolean status;
 
 }
