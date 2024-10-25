@@ -11,14 +11,16 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "ServiceDetail")
-@IdClass(ServiceDetailID.class)
 public class ServiceDetail {
     @Id
+    @Column(name = "ServiceDetailID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer serviceDetailID;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TicketID")
     Ticket ticket;
 
-    @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ServiceID")
     Service service;
