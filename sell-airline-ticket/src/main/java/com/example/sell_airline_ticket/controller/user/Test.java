@@ -14,6 +14,7 @@ public class Test {
     public String about() {
         return "user/about";
     }
+
     @GetMapping("/accomodation.html")
     public String accomodation() {
         return "user/accomodation";
