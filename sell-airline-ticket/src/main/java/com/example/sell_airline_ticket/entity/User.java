@@ -1,6 +1,7 @@
 package com.example.sell_airline_ticket.entity;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -34,6 +35,4 @@ public class User {
 
     @Column(name = "Status", nullable = false)
     Boolean status;
-
 }
-
