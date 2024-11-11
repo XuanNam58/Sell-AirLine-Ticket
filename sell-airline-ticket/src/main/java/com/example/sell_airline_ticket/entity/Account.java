@@ -18,7 +18,7 @@ public class Account {
     @Column(name = "Password", length = 30, nullable = false)
     String password;
     @OneToOne
-    @JoinColumn(name = "UserID", referencedColumnName = "USERID")
+    @JoinColumn(name = "UserID", referencedColumnName = "UserID")
     User user;
     @Column(name = "Status")
     Boolean status;
