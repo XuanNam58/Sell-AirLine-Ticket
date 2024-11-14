@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+
       th:fragment="layout (title, content, pageScripts)">
 <head th:fragment="meta_css">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <link rel="icon" th:href="@{user/image/Logo/fb_TabLogo.png}" type="image/png">
     <title>Flight Booking</title>
     <!-- Bootstrap CSS -->
@@ -20,20 +23,25 @@
     <link rel="stylesheet" th:href="@{/user/css/style.css}">
     <link rel="stylesheet" th:href="@{static/user/css/responsive.css}">
 </head>
+
+
 <body>
 <!--================Header Area =================-->
-<header class="header_area" th:fragment="header">
+<header class="header_area">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <a class="navbar-brand logo_h" href="index.html"><img th:src="@{/user/image/Logo/fb_MainLogoFB.png}" alt=""></a>
+            <a class="navbar-brand logo_h" href="index.html">
+                <img th:src="@{/user/image/Logo/fb_MainLogoFB.png}" alt="">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <!-- Collect the nav links, forms, and other content for toggling -->
+
+            <!-- Navbar Content -->
             <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                 <ul class="nav navbar-nav menu_nav ml-auto">
                     <li class="nav-item active"><a class="nav-link" href="index.html">Trang chủ</a></li>
@@ -49,12 +57,17 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Đăng nhập</a></li>
+
+                    <li class="nav-item">
+                        <a class="nav-link login-status">
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
     </div>
 </header>
+
 <!--================Header Area =================-->
 
 <!--================ start footer Area  =================-->

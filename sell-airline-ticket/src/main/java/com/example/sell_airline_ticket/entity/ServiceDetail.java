@@ -1,6 +1,7 @@
 package com.example.sell_airline_ticket.entity;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -24,5 +25,4 @@ public class ServiceDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ServiceID")
     Service service;
-
 }

@@ -1,19 +1,22 @@
 package com.example.sell_airline_ticket.controller.user;
 
-import  org.springframework.ui.Model;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.example.sell_airline_ticket.entity.Service;
 
-import java.util.List;
+import java.security.Principal;
 
 @Controller
 public class Test {
-    @Autowired
-    com.example.sell_airline_ticket.service.user.impl.ServiceService serviceSer;
     @GetMapping({"/", "/index.html"})
-    public String index() {
+    public String index(Model model, Principal principal) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAuthenticated = (authentication != null && authentication.isAuthenticated());
+        model.addAttribute("isAuthenticated", isAuthenticated);
         return "user/index";
     }
 
@@ -22,4 +25,13 @@ public class Test {
         return "user/about";
     }
 
+    @GetMapping("/accomodation.html")
+    public String accomodation() {
+        return "user/accomodation";
+    }
+
+    @GetMapping("/login.html")
+    public String loginPage() {
+        return "user/login";
+    }
 }
