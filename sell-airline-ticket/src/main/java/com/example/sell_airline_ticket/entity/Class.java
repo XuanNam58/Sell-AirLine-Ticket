@@ -16,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "Class")
 public class Class {
     @Id
-    @Column(name = "ClassID", length = 10, nullable = false)
+    @Column(name = "ClassId", length = 10, nullable = false)
     String classID;
     @Column(name = "ClassName", length = 10, nullable = true)
     String className;
