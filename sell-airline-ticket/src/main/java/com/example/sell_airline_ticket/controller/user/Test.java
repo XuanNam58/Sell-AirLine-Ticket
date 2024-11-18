@@ -25,11 +25,6 @@ public class Test {
         return "user/about";
     }
 
-    @GetMapping("/accomodation.html")
-    public String accomodation() {
-        return "user/accomodation";
-    }
-
     @GetMapping("/login.html")
     public String loginPage() {
         return "user/login";
