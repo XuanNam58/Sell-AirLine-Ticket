@@ -1,4 +1,5 @@
-package com.example.sell_airline_ticket.dto.request;
+package com.example.sell_airline_ticket.dto.response;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
-    private String username;
-    private String password;
+public class RegisterResponse {
+    private String message;
+    private boolean success;
 }

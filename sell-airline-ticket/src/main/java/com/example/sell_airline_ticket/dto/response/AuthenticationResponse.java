@@ -1,4 +1,4 @@
-package com.example.sell_airline_ticket.entity;
+package com.example.sell_airline_ticket.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
