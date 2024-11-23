@@ -9,3 +9,21 @@ spring:
     driver-class-name: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
     username: sa
     password: 123456
+
+#----
+#spring:
+#  application:
+#    name: sell-airline-ticket
+#
+#  datasource:
+#    url: "jdbc:sqlserver://localhost:1433;databaseName=FLIGHTBOOKING;encrypt=true;trustServerCertificate=true"
+#    driver-class-name: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+#    username: sa
+#    password: 123456
+#
+#server:
+#  port: 8080
+#  servlet:
+#    context-path: /flight-booking
+
+
