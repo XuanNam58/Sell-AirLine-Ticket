@@ -10,6 +10,7 @@ import com.example.sell_airline_ticket.repository.AccountRepository;
 import com.example.sell_airline_ticket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import org.springframework.security.core.Authentication;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 @Service
@@ -38,6 +40,8 @@ public class AuthService {
     private final AccountRepository accountRepository;
     @Autowired
     private final BCryptPasswordEncoder passwordEncoder;
+//    @Autowired
+//    private RedisTemplate<String, Object> redisTemplate;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         try {
@@ -49,6 +53,9 @@ public class AuthService {
             );
 
             String token = jwtService.generateToken(authentication);
+
+//            String redisKey = "TOKEN:" + request.getUsername();
+//            redisTemplate.opsForValue().set(redisKey, token, 720, TimeUnit.MINUTES);
 
             return AuthenticationResponse.builder()
                     .token(token)

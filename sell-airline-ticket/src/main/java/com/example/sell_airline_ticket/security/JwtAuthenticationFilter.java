@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+//    @Autowired
+//    private RedisTemplate<String, String> redisTemplate;
 
     private final JwtService jwtService;
     private static final String AUTHORIZATION_HEADER = "Authorization";
@@ -32,12 +36,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(token) && jwtService.isTokenValid(token)) {
                 String username = jwtService.extractUsername(token);
                 if (!username.equalsIgnoreCase("anonymousUser")) {
+
+                    // Kiểm tra token trong Redis
+//                    String redisKey = "TOKEN:" + username;
+//                    String storedToken = redisTemplate.opsForValue().get(redisKey);
+
                     Authentication authentication = jwtService.getAuthentication(token);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e);
+            throw new Error("Cannot set user authentication: {}", e);
         }
 
         filterChain.doFilter(request, response);
