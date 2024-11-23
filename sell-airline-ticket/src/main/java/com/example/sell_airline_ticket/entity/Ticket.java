@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
+import com.example.sell_airline_ticket.entity.User;
+import com.example.sell_airline_ticket.entity.Flight;
 @Entity
 @Data
 @AllArgsConstructor
@@ -14,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "Ticket")
 public class Ticket {
     @Id
-    @Column(name = "TicketID", length = 10, nullable = false)
+    @Column(name = "TicketId", length = 10, nullable = false)
     String ticketID;
 
     @Column(name = "Type", length = 15, nullable = true)
@@ -27,12 +28,12 @@ public class Ticket {
     Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserID")
+    @JoinColumn(name = "UserId")
     User user;
     @Column(name = "SeatNum")
     Integer seatNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FlightID")
-    Flight flight;
+    @JoinColumn(name = "FlightId")
+     Flight flight;
 }
