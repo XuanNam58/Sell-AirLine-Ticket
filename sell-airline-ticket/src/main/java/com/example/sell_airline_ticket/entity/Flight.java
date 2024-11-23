@@ -1,12 +1,10 @@
 package com.example.sell_airline_ticket.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -17,25 +15,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "Flight")
 public class Flight {
     @Id
-    @Column(name = "FlightID")
+    @Column(name = "FlightId", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer flightID;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PlaneID")
-    Plane plane;
-
+    @JoinColumn(name = "PlaneId")
+    com.example.sell_airline_ticket.entity.Plane plane;
     @Column(name = "Departure", length = 50)
     String departure;
-
     @Column(name = "Destination", length = 50)
     String destination;
-
-    @Column(name = "DepTime", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Column(name = "DepTime")
     LocalDateTime depTime;
-
-    @Column(name = "ArrTime", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Column(name = "ArrTime")
     LocalDateTime arrTime;
 }
