@@ -21,8 +21,8 @@ public class Account {
     String password;
 
     @OneToOne
-    @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    User user;
+    @JoinColumn(name = "UserId", referencedColumnName = "UserId")
+    com.example.sell_airline_ticket.entity.User user;
 
     @Column(name = "Status")
     Boolean status;
