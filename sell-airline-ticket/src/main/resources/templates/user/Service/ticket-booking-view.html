@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/linearicons.css}">
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/jquery-ui.css}">
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/ticketBooking/css/main.css}">
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{user/image/Logo/fb_TabLogo.png}" type="image/png">
+    <title>Flight Booking</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/user/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/user/vendors/linericon/style.css}">
+    <link rel="stylesheet" th:href="@{/user/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/user/vendors/owl-carousel/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/user/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" th:href="@{/user/vendors/nice-select/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/user/vendors/owl-carousel/owl.carousel.min.css}">
+    <!-- main css -->
+    <link rel="stylesheet" th:href="@{/user/css/style.css}">
+    <link rel="stylesheet" th:href="@{static/user/css/responsive.css}">
+
+</head>
+<header class="header_area" th:fragment="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <a class="navbar-brand logo_h" href="index.html"><img th:src="@{/user/image/Logo/fb_MainLogoFB.png}" alt=""></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                <ul class="nav navbar-nav menu_nav ml-auto">
+                    <li class="nav-item active"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">Về chúng tôi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="accomodation.html">Dịch vụ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Trưng bày</a></li>
+                    <li class="nav-item submenu dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Blog</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="blog-single.html">Blog Details</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Đăng nhập</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<body>
+
+<!-- start banner Area -->
+<section class="about-banner relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Chuyến bay
+                </h1>
+                <p class="text-white link-nav"><a href="index.html">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href="packages.html"> Chuyến bay</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+
+
+
+
+<!-- Start destinations Area -->
+<section class="destinations-area section-gap">
+    <div class="container" >
+        <div class="row" >
+            <div class="col-lg-4" th:each="flight, index : ${flights}">
+                <div class="single-destinations">
+                    <div class="thumb">
+                        <img th:src="@{/ticketBooking/img/flight/flight.jpg}" alt="">
+                    </div>
+                    <div class="details" style=" background-color:#F5F5F5;">
+                        <h4 style="color:#F08080; font-weight: bolder;" th:text ="'Chuyến bay đến ' + ${flight.destination}"></h4>
+                        <p th:text="'Xuất phát từ ' + ${flight.departure}">
+
+                        </p>
+                        <ul class="package-list">
+                            <li class="d-flex justify-content-between align-items-center">
+                                <span style="color:#F08080; font-weight: bolder;">Khởi hành: </span>
+                                <span th:text="${flight.depTime}"></span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                <span style="color:#F08080; font-weight: bolder;">Máy bay</span>
+                                <span th:text="${flight.plane.name}"></span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                <span style="color:#F08080; font-weight: bolder;">Số ghế trống:</span>
+                                <span>10</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                <span style="color:#F08080; font-weight: bolder;">Sân bay:</span>
+                                <span>Ptit Airline</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                <span style="color:#F08080; font-weight: bolder;">Giá cho mỗi người</span>
+                                <a href="#" class="price-btn">$250</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End destinations Area -->
+
+
+
+
+<!-- start footer Area -->
+
+<!-- End footer Area -->
+
+<script th:href="@{/ticketBooking/js/vendor/jquery-2.2.4.min.js}"></script>
+<script th:href="@{/ticketBooking/js/popper.min.js}"></script>
+<script th:href="@{/ticketBooking/js/vendor/bootstrap.min.js}"></script>
+<script href="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+<script th:href="@{/ticketBooking/js/jquery-ui.js}"></script>
+<script th:href="@{/ticketBooking/js/easing.min.js}"></script>
+<script th:href="@{/ticketBooking/js/hoverIntent.js}"></script>
+<script th:href="@{/ticketBooking/js/superfish.min.js}"></script>
+<script th:href="@{/ticketBooking/js/jquery.ajaxchimp.min.js}"></script>
+<script th:href="@{/ticketBooking/js/jquery.magnific-popup.min.js}"></script>
+<script th:href="@{/ticketBooking/js/jquery.nice-select.min.js}"></script>
+<script th:href="@{/ticketBooking/js/owl.carousel.min.js}"></script>
+<script th:href="@{/ticketBooking/js/mail-script.js}"></script>
+<script th:href="@{/ticketBooking/js/main.js}"></script>
+</body>
+</html>

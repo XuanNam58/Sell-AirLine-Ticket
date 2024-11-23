@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 public class User {
 
     @Id
-    @Column(name = "UserID", length = 10, nullable = false)
+    @Column(name = "UserId", length = 10, nullable = false)
     String userID;
 
     @Column(name = "Name", length = 50, nullable = false)
@@ -27,7 +27,7 @@ public class User {
     @Column(name = "Email", length = 50, nullable = true)
     String email;
 
-    @Column(name = "CitizenID", length = 12, nullable = false)
+    @Column(name = "CitizenId", length = 12, nullable = false)
     String citizenID;
 
     @Column(name = "CreditNum", length = 20, nullable = true)
