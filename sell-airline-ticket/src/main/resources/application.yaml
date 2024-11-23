@@ -9,21 +9,22 @@ spring:
     driver-class-name: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
     username: sa
     password: 123456
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
-#----
-#spring:
-#  application:
-#    name: sell-airline-ticket
-#
-#  datasource:
-#    url: "jdbc:sqlserver://localhost:1433;databaseName=FLIGHTBOOKING;encrypt=true;trustServerCertificate=true"
-#    driver-class-name: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-#    username: sa
-#    password: 123456
-#
-#server:
-#  port: 8080
-#  servlet:
-#    context-path: /flight-booking
-
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: automailsender111@gmail.com
+    password: cchp fuat gdtn ayhv
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    default-encoding: UTF-8

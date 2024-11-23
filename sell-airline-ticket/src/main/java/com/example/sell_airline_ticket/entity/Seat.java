@@ -1,9 +1,11 @@
 package com.example.sell_airline_ticket.entity;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
+import com.example.sell_airline_ticket.entity.Plane;
+import com.example.sell_airline_ticket.entity.Class;
 @Entity
 @Data
 @AllArgsConstructor
@@ -13,14 +15,17 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "Seat")
 public class Seat {
     @Id
-    @Column(name = "SeatID", length = 10, nullable = false)
+    @Column(name = "SeatId", length = 10, nullable = false)
     String seatID;
+
     @Column(name = "SeatNum", nullable = true)
     Integer seatNum;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ClassID")
+    @JoinColumn(name = "ClassId")
     Class aClass;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PlaneID")
+    @JoinColumn(name = "PlaneId")
     Plane plane;
 }

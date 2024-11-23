@@ -1,11 +1,11 @@
 package com.example.sell_airline_ticket.entity;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDateTime;
-
+import com.example.sell_airline_ticket.entity.User;
+import com.example.sell_airline_ticket.entity.Flight;
 @Entity
 @Data
 @AllArgsConstructor
@@ -15,19 +15,25 @@ import java.time.LocalDateTime;
 @Table(name = "Ticket")
 public class Ticket {
     @Id
-    @Column(name = "TicketID", length = 10, nullable = false)
+    @Column(name = "TicketId", length = 10, nullable = false)
     String ticketID;
+
     @Column(name = "Type", length = 15, nullable = true)
     String type;
+
     @Column(name = "Tax", nullable = true)
     Float tax;
-    @Column(name = "STATUS")
+
+    @Column(name = "Status")
     Boolean status;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserID")
+    @JoinColumn(name = "UserId")
     User user;
+    @Column(name = "SeatNum")
     Integer seatNum;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FlightID")
-    Flight flight;
+    @JoinColumn(name = "FlightId")
+     Flight flight;
 }

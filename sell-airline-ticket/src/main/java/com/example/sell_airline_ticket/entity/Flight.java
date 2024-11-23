@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
 @Table(name = "Flight")
 public class Flight {
     @Id
-    @Column(name = "FlightID", nullable = false)
+    @Column(name = "FlightId", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer flightID;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PlaneID")
-    Plane plane;
+    @JoinColumn(name = "PlaneId")
+    com.example.sell_airline_ticket.entity.Plane plane;
     @Column(name = "Departure", length = 50)
     String departure;
     @Column(name = "Destination", length = 50)
