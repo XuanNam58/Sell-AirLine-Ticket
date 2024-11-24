@@ -1,36 +1,46 @@
 package com.example.sell_airline_ticket.service.authentication;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
-import javax.crypto.SecretKey;
+import java.security.Key;
 import java.util.Collections;
 import java.util.Date;
 
 @Service
 public class JwtService {
-    private static final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private static final String SECRET_KEY = "Y2VydC1kZXZlbG9wbWVudC1pbnRlcm5hbC1rZXktc2VjcmV0LWhpcy1leGFtcGxlLXN0cmluZw==";
 
-    //generate token with username
+    // Lấy Key từ SECRET_KEY
+    private Key getSigningKey() {
+        byte[] keyAsBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyAsBytes);  // Dùng helper function của jjwt để tạo hmacSHA256 key
+    }
+
     public String generateToken(Authentication authentication) {
         return Jwts.builder()
                 .setSubject(authentication.getName())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12)) // 12 giờ
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .setIssuedAt(new Date(System.currentTimeMillis()))  // Thời gian tạo token
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12)) // Hết hạn sau 12 giờ
+                .signWith(SignatureAlgorithm.HS256, getSigningKey())  // Sử dụng HS256 để ký token
                 .compact();
     }
 
     public String extractUsername(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new RuntimeException("Token extraction failed: " + e.getMessage(), e);  // Thêm thông báo lỗi chi tiết
+        }
     }
 
     public boolean isTokenExpired(String token) {
@@ -38,8 +48,9 @@ public class JwtService {
     }
 
     private Date extractExpiration(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getExpiration();
@@ -47,8 +58,10 @@ public class JwtService {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            return !isTokenExpired(token);
+            Jwts.parser()
+                    .setSigningKey(getSigningKey())
+                    .parseClaimsJws(token);  // Xác thực chữ ký của token
+            return !isTokenExpired(token);  // Kiểm tra nếu token đã hết hạn chưa
         } catch (SignatureException e) {
             System.out.println("Invalid JWT signature: " + e.getMessage());
         } catch (MalformedJwtException e) {
@@ -60,10 +73,9 @@ public class JwtService {
         } catch (IllegalArgumentException e) {
             System.out.println("JWT claims string is empty: " + e.getMessage());
         }
-        return false;
+        return false;  // Nếu có lỗi, token không hợp lệ
     }
 
-    // Tạo Authentication object từ token
     public Authentication getAuthentication(String token) {
         String username = extractUsername(token);
 
@@ -76,9 +88,9 @@ public class JwtService {
 
     public boolean isTokenValid(String token) {
         try {
-            return validateToken(token);
+            return validateToken(token);  // Xác thực token
         } catch (Exception e) {
-            System.out.println("Error validating token: {}" + e.getMessage());
+            System.out.println("Error validating token: " + e.getMessage());  // Xử lý ngoại lệ chi tiết hơn
             return false;
         }
     }
