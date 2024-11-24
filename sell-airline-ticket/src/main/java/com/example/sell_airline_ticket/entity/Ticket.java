@@ -30,10 +30,10 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserId")
     User user;
-    @Column(name = "SeatNum")
+    @Column(name = "Seat_Num")
     Integer seatNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FlightId")
+    @JoinColumn(name = "Flight_Id")
      Flight flight;
 }
