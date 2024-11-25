@@ -1,145 +1,166 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head th:replace="user/fragments :: meta_css"></head>
-    <body>
-        <!--================Header Area =================-->
-        <header th:replace="user/fragments :: header"></header>
-        <!--================Header Area =================-->
-        
-        <!--================Breadcrumb Area =================-->
-        <section class="breadcrumb_area">
-            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-            <div class="container">
-                <div class="page-cover text-center">
-                    <h2 class="page-cover-tittle">Contact Us</h2>
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active">Contact Us</li>
-                    </ol>
+<body>
+<!--================Header Area =================-->
+<header th:replace="user/fragments :: header"></header>
+<!--================Header Area =================-->
+
+<!--================Breadcrumb Area =================-->
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">Liên hệ với chúng tôi</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Trang chủ</a></li>
+                <li class="active">Liên hệ</li>
+            </ol>
+        <p style="color: white; font-size: 20px;">Hãy liên hệ để đặt vé máy bay nhanh chóng và tiện lợi.</p>
+        </div>
+    </div>
+</section>
+<!--================Breadcrumb Area =================-->
+
+<!--================Contact Area =================-->
+<section class="contact_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="contact_info">
+                    <div class="info_item">
+                        <i class="lnr lnr-home"></i>
+                        <h6>Thủ Đức, Hồ Chí Minh</h6>
+                        <p>Man Thiện</p>
+                    </div>
+                    <div class="info_item">
+                        <i class="lnr lnr-phone-handset"></i>
+                        <h6><a href="#">0123456789</a></h6>
+                        <p>Từ thứ Hai đến thứ Bảy, 8h sáng - 6h chiều</p>
+                    </div>
+                    <div class="info_item">
+                        <i class="lnr lnr-envelope"></i>
+                        <h6><a href="#">support@gmail.com</a></h6>
+                        <p>Gửi thắc mắc của bạn bất kỳ lúc nào!</p>
+                    </div>
                 </div>
             </div>
-        </section>
-        <!--================Breadcrumb Area =================-->
-        
-        <!--================Contact Area =================-->
-        <section class="contact_area section_gap">
-            <div class="container">
-                <div id="mapBox" class="mapBox" 
-                    data-lat="40.701083" 
-                    data-lon="-74.1522848" 
-                    data-zoom="13" 
-                    data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
-                    data-mlat="40.701083"
-                    data-mlon="-74.1522848">
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="contact_info">
-                            <div class="info_item">
-                                <i class="lnr lnr-home"></i>
-                                <h6>California, United States</h6>
-                                <p>Santa monica bullevard</p>
-                            </div>
-                            <div class="info_item">
-                                <i class="lnr lnr-phone-handset"></i>
-                                <h6><a href="#">00 (440) 9865 562</a></h6>
-                                <p>Mon to Fri 9am to 6 pm</p>
-                            </div>
-                            <div class="info_item">
-                                <i class="lnr lnr-envelope"></i>
-                                <h6><a href="#">support@colorlib.com</a></h6>
-                                <p>Send us your query anytime!</p>
-                            </div>
+            <div class="col-md-9">
+                <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên của bạn">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Nhập địa chỉ email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Nhập tiêu đề">
                         </div>
                     </div>
-                    <div class="col-md-9">
-                        <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <textarea class="form-control" name="message" id="message" rows="1" placeholder="Enter Message"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12 text-right">
-                                <button type="submit" value="submit" class="btn theme_btn button_hover">Send Message</button>
-                            </div>
-                        </form>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Nhập tin nhắn"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <button type="submit" value="submit" class="btn theme_btn button_hover">Gửi tin nhắn</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <hr style="border: 3px solid #f1c40f; margin: 60px 0 20px 0;">
+        <!--================FAQ Area=================-->
+        <div class="faq_section section_gap">
+            <div class="section_title text-center">
+                <h2 class="title_color">Câu hỏi thường gặp (FAQ)</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="faq_item" style="border: 1px solid #f1c40f; border-radius: 5px; padding: 15px; background-color: #f9f9f9;">
+                        <h5 class="faq_question" style="color: #e67e22;">Làm thế nào để đặt vé máy bay trên trang web của bạn?</h5>
+                        <p class="faq_answer" style="color: #34495e;">Để đặt vé máy bay, bạn chỉ cần vào trang chủ, tìm kiếm chuyến bay theo điểm đến, chọn chuyến bay phù hợp và làm theo hướng dẫn để thanh toán.</p>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!--================Contact Area =================-->
-        
-        <!--================ start footer Area  =================-->
-        <footer th:replace="user/fragments :: footer"></footer>
-		<!--================ End footer Area  =================-->
-       
-       
-       <!--================Contact Success and Error message Area =================-->
-        <div id="success" class="modal modal-message fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <i class="fa fa-close"></i>
-                        </button>
-                        <h2>Thank you</h2>
-                        <p>Your message is successfully sent...</p>
+                <div class="col-md-6">
+                    <div class="faq_item" style="border: 1px solid #f1c40f; border-radius: 5px; padding: 15px; background-color: #f9f9f9;">
+                        <h5 class="faq_question" style="color: #e67e22;">Tôi có thể hủy hoặc thay đổi vé sau khi đặt không?</h5>
+                        <p class="faq_answer" style="color: #34495e;">Có, bạn có thể hủy hoặc thay đổi vé, tuy nhiên, việc này có thể phát sinh phí tùy theo điều khoản của từng hãng hàng không.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="faq_item" style="border: 1px solid #f1c40f; border-radius: 5px; padding: 15px; background-color: #f9f9f9;">
+                        <h5 class="faq_question" style="color: #e67e22;">Có chương trình khuyến mãi nào không?</h5>
+                        <p class="faq_answer" style="color: #34495e;">Chúng tôi thường xuyên có các chương trình khuyến mãi, hãy đăng ký nhận thông báo để cập nhật các ưu đãi mới nhất.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="faq_item" style="border: 1px solid #f1c40f; border-radius: 5px; padding: 15px; background-color: #f9f9f9;">
+                        <h5 class="faq_question" style="color: #e67e22;">Tôi cần hỗ trợ về hành lý, tôi phải làm gì?</h5>
+                        <p class="faq_answer" style="color: #34495e;">Bạn có thể tham khảo thông tin về hành lý của từng hãng hàng không trên trang web của chúng tôi hoặc liên hệ hỗ trợ để được tư vấn thêm.</p>
                     </div>
                 </div>
             </div>
         </div>
+        <!--================End FAQ Area=================-->
 
-        <!-- Modals error -->
+    </div>
+</section>
+<!--================Contact Area =================-->
 
-        <div id="error" class="modal modal-message fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <i class="fa fa-close"></i>
-                        </button>
-                        <h2>Sorry !</h2>
-                        <p> Something went wrong </p>
-                    </div>
-                </div>
+<!--================ Start footer Area =================-->
+<footer th:replace="user/fragments :: footer"></footer>
+<!--================ End footer Area  =================-->
+
+<!--================Contact Success and Error message Area =================-->
+<div id="success" class="modal modal-message fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </button>
+                <h2>Cảm ơn bạn</h2>
+                <p>Tin nhắn của bạn đã được gửi thành công.</p>
             </div>
         </div>
-        <!--================End Contact Success and Error message Area =================-->
-        
-        
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script th:src="@{/user/js/jquery-3.2.1.min.js}"></script>
-        <script th:src="@{/user/js/popper.js}"></script>
-        <script th:src="@{/user/js/bootstrap.min.js}"></script>
-        <script th:src="@{/user/vendors/owl-carousel/owl.carousel.min.js}"></script>
-        <script th:src="@{/user/js/jquery.ajaxchimp.min.js}"></script>
-        <script th:src="@{/user/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js}"></script>
-        <script th:src="@{/user/vendors/nice-select/js/jquery.nice-select.js}"></script>
-        <script th:src="@{/user/js/mail-script.js}"></script>
-        <script th:src="@{/user/js/stellar.js}"></script>
-        <script th:src="@{/user/vendors/imagesloaded/imagesloaded.pkgd.min.js}"></script>
-        <script th:src="@{/user/vendors/isotope/isotope.min.js}"></script>
-        <script th:src="@{/user/vendors/lightbox/simpleLightbox.min.js}"></script>
-        <!-- Google Maps API -->
-        <script th:src="'https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE'"></script>
-        <script th:src="@{/user/js/gmaps.min.js}"></script>
-        <!-- Contact form scripts -->
-        <script th:src="@{/user/js/jquery.form.js}"></script>
-        <script th:src="@{/user/js/jquery.validate.min.js}"></script>
-        <script th:src="@{/user/js/contact.js}"></script>
-        <script th:src="@{/user/js/custom.js}"></script>
+    </div>
+</div>
 
-    </body>
+<!-- Modal error -->
+<div id="error" class="modal modal-message fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </button>
+                <h2>Xin lỗi!</h2>
+                <p>Đã xảy ra lỗi. Vui lòng thử lại sau.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--================End Contact Success and Error message Area =================-->
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script th:src="@{/user/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/user/js/popper.js}"></script>
+<script th:src="@{/user/js/bootstrap.min.js}"></script>
+<script th:src="@{/user/vendors/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{/user/js/jquery.ajaxchimp.min.js}"></script>
+<script th:src="@{/user/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js}"></script>
+<script th:src="@{/user/vendors/nice-select/js/jquery.nice-select.js}"></script>
+<script th:src="@{/user/js/mail-script.js}"></script>
+<script th:src="@{/user/js/stellar.js}"></script>
+<script th:src="@{/user/vendors/imagesloaded/imagesloaded.pkgd.min.js}"></script>
+<script th:src="@{/user/vendors/isotope/isotope.min.js}"></script>
+<script th:src="@{/user/vendors/lightbox/simpleLightbox.min.js}"></script>
+<script th:src="@{/user/js/custom.js}"></script>
+
+</body>
 </html>
