@@ -66,6 +66,7 @@
                                 <button type="button" th:id="${seat.seatID}"
                                         th:data-flightid="${flightID}"
                                         th:data-seatid="${seat.seatID}"
+                                        th:data-seatnum="${seat.seatNum}"
                                         onclick="fetchCustomerInfo(this)"
                                         data-toggle="modal"
                                         data-target="#customerinfomodal"
@@ -75,6 +76,9 @@
                                 </button>
 <!--                                <label th:for="${seat.seatID}" th:text="${seat.seatNum}"  th:class="${seat.isBooked} ? 'booked' : ''"></label>-->
 
+
+
+                            </li>
                                 <div class="modal fade" id="customerinfomodal" tabindex="-1" role="dialog" aria-labelledby="customerinfomodalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-sm" role="document">
                                         <div class="modal-content">
@@ -92,19 +96,18 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                                 <button type="button"
-                                                        th:data-id="${seat.seatID}"
-                                                        th:data-flightid="${flightID}"
-                                                        th:data-seatnum="${seat.seatNum}"
-                                                        th:onclick="|window.location.href='@{/admin/ticket/deleteticket/{flightID}/{seatNum}(flightID=${flightID}, seatNum=${seat.seatNum})}'|"
+
+
                                                         class="btn btn-danger"
                                                         id="deleteButton">Xóa</button>
                                             </div>
+<!--                                            th:data-id="${seat.seatID}"-->
+<!--                                            th:data-flightid="${flightID}"-->
+<!--                                            th:data-seatnum="${seat.seatNum}"-->
+<!--                                            th:onclick="|window.location.href='@{/admin/ticket/deleteticket/{flightID}/{seatNum}(flightID=${flightID}, seatNum=${seat.seatNum})}'|"-->
                                         </div>
                                     </div>
                                 </div>
-
-
-                            </li>
                         </ol>
                     </li>
 
