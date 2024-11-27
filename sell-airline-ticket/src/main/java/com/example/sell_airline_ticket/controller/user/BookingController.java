@@ -1,5 +1,6 @@
 package com.example.sell_airline_ticket.controller.user;
 
+import com.example.sell_airline_ticket.util.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import  org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,10 @@ public class BookingController {
 //                .anyMatch(flight -> flight.getDepTime().toLocalDate().equals(returnDate));
 
 //        if (departureAvailable && returnAvailable) {
-            model.addAttribute("flights", flightSer.searchFlights(departure, destination, departureDate, returnDate));
+            model.addAttribute("flights", flightSer.searchFlights(StringUtils.capitalizeAndTrim(departure),
+                    StringUtils.capitalizeAndTrim(destination),
+                    departureDate,
+                    returnDate));
 //        }
 
         return "user/Service/ticket-booking-view";

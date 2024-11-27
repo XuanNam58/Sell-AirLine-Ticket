@@ -213,20 +213,20 @@
         <script>
 
             $(document).ready(function () {
-     const tripType = $('#tripType');
-     const returnDate = $('#returnDate');
-     const calendarIcon = $('#datetimepicker1 .input-group-addon'); // Icon lịch
+                const tripType = $('#tripType');
+                const returnDate = $('#returnDate');
+                const calendarIcon = $('#datetimepicker1 .input-group-addon'); // Icon lịch
 
-     tripType.on('change', function () {
-         if ($(this).val() === "Một chiều") {
-             returnDate.prop('disabled', true).val(''); // Disable input và xóa giá trị
-             calendarIcon.hide();
-         } else {
-             returnDate.prop('disabled', false); // Enable input
-             calendarIcon.show();
-         }
-     });
- });
+            tripType.on('change', function () {
+                if ($(this).val() === "Một chiều") {
+                    returnDate.prop('disabled', true).val(''); // Disable input và xóa giá trị
+                    calendarIcon.hide();
+                } else {
+                    returnDate.prop('disabled', false); // Enable input
+                    calendarIcon.show();
+                }
+            });
+        });
 
 
         </script>
