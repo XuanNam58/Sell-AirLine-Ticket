@@ -24,6 +24,7 @@ public class Account {
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     com.example.sell_airline_ticket.entity.User user;
 
+
     @Column(name = "Status")
     Boolean status;
 }
