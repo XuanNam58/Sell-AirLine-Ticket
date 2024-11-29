@@ -74,16 +74,26 @@
 </section>
 <script th:inline="javascript">
     var seat = 0;
+    function closeModal2(){
+        const modalContainer = document.getElementById('modal-container')
+        modalContainer.classList.remove('show-modal')
 
+    }
+    function closeModal3(){
+        const modalContainer = document.getElementById('modal-container')
+        modalContainer.classList.remove('show-modal')
+        alert("Bạn đã hết phiên đặt vé, vui lòng đặt lại!")
+        window.location.reload();
+    }
     function showModel2(element){
         const modalContainer = document.getElementById("modal-container")
         modalContainer.classList.add('show-modal')
         seat = parseInt(element.getAttribute('data-value'))
+        setTimeout(closeModal3, 5000);
+
+
     }
-    function closeModal2(){
-        const modalContainer = document.getElementById('modal-container')
-        modalContainer.classList.remove('show-modal')
-    }
+
     function booking(button) {
         const userId = button.getAttribute('data-value1')
         const flightId = button.getAttribute('data-value2')
