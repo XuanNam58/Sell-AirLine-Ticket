@@ -7,21 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.sell_airline_ticket.entity.Service;
-
+import org.springframework.web.bind.annotation.PathVariable;
+import com.example.sell_airline_ticket.entity.Ticket;
+import com.example.sell_airline_ticket.service.user.TicketService;
 import java.util.List;
 
 @Controller
 public class ServiceController {
     @Autowired
     com.example.sell_airline_ticket.service.user.impl.ServiceService serviceSer;
+    @Autowired
+    TicketService ticketSer;
     @GetMapping("/accomodation.html")
     public String accomodation(Model model) {
         List<Service> services = serviceSer.getAllService();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        System.out.println(username);
+        List<Ticket> tickets = ticketSer.getAllTicketOfCus("0001");
+        model.addAttribute("tickets", tickets);
         model.addAttribute("listService", services);
         return "user/accomodation";
+    }
+
+    @GetMapping("/service/detail/{serviceId}")
+    public String serviceDetail(Model model, @PathVariable String serviceId) {
+        Service service = serviceSer.getServiceById(serviceId);
+        model.addAttribute("service", service);
+        return "user/Service/service-detail";
     }
 
 
