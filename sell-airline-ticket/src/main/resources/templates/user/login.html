@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="user/fragments :: meta_css"></head>
 <body>
+<div id="notification-container" th:replace="user/notification :: notificationFragment"></div>
+
 
 <!--================Header Area =================-->
 <header th:replace="user/fragments :: header"></header>
@@ -12,7 +14,7 @@
         <img th:src="@{user/image/login/bg.svg}">
     </div>
     <div class="login-content">
-        <form action="index.html" class="form-login">
+        <form class="form-login" id="loginForm">
             <img th:src="@{user/image/login/avatar.svg}">
             <h2 class="title">Welcome</h2>
             <div class="input-div one">
@@ -21,7 +23,7 @@
                 </div>
                 <div class="div">
 <!--                    <h5>Tên đăng nhập</h5>-->
-                    <input type="text" class="input" placeholder = "Tên đăng nhập" >
+                    <input type="text" class="input" name="username" placeholder = "Tên đăng nhập" >
                 </div>
             </div>
             <div class="input-div pass">
@@ -30,7 +32,7 @@
                 </div>
                 <div class="div">
 <!--                    <h5>Mật khẩu</h5>-->
-                    <input type="password" class="input" placeholder = "Mật khẩu" >
+                    <input type="password" class="input" name="password" placeholder = "Mật khẩu" >
                 </div>
             </div>
             <a href="#">Quên mật khẩu?</a>
@@ -43,5 +45,6 @@
     </div>
 </div>
 <script th:src="@{/user/js/login.js}"></script>
+<script th:src="@{/user/js/base.js}" ></script>
 </body>
 </html>

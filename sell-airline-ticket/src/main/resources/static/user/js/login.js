@@ -2,8 +2,8 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     event.preventDefault(); // prevent resend form
 
     const loginData = {
-        username: event.target.username.value,
-        password: event.target.password.value
+        username: document.querySelector("input[name='username']").value,
+        password: document.querySelector("input[name='password']").value,
     };
 
     //Fetch API
@@ -19,14 +19,14 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         .then(data => {
             if (data.success) {
                 localStorage.setItem("jwtToken", data.token);
+                console.log(data.token)
                 window.location.href = "/flight-booking/index.html";
             } else {
-                alert(data.message || "Đăng nhập thất bại!");
+                showNoticeMessage(false,"Sai thông tin đăng nhập")
             }
 
         })
         .catch(error => {
-            console.error("Error:", error);
-            alert("Có lỗi xảy ra khi đăng nhập!");
+            showNoticeMessage(false,"Đã xảy ra lỗi")
         });
 });

@@ -7,14 +7,19 @@ import com.example.sell_airline_ticket.repository.ServiceDetailRepository;
 import com.example.sell_airline_ticket.service.user.impl.ServiceDetailUService;
 import com.example.sell_airline_ticket.repository.ServiceRepository;
 import com.example.sell_airline_ticket.repository.TicketRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 @RestController
-@RequestMapping("/booking")
 public class BookingWork{
     @Autowired
     com.example.sell_airline_ticket.repository.UserRepository userRepo;
@@ -22,7 +27,7 @@ public class BookingWork{
     com.example.sell_airline_ticket.repository.FlightRepository flightRepo;
     @Autowired
     TicketRepository ticketRepo;
-    @PostMapping
+    @PostMapping("/booking")
     public ResponseEntity<?> booking(@RequestBody Map<String, Object> data) {
         String userId = (String) data.get("userId");
         com.example.sell_airline_ticket.entity.Flight flight = null;
@@ -46,5 +51,14 @@ public class BookingWork{
         ticket.setUser(user);
         ticketRepo.save(ticket);
         return ResponseEntity.ok(Map.of("message", "Đặt vé thành công!"));
+    }
+
+    @GetMapping("/flightDetail-api/{flightId}")
+    public String flightDetail(@RequestHeader("Authorization") String authorizationHeader,
+                               @PathVariable int flightId, HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        request.getSession().setAttribute("currentUsername", username);
+        return "redirect:flightDetail/"+flightId;
     }
 }
