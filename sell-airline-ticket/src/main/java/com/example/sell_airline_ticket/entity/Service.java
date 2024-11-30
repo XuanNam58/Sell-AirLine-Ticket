@@ -17,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 public class Service {
     @Id
     @Column(name = "ServiceId", length = 10)
-    String serviceID;
+    String serviceId;
     @Column(name = "ServiceName", length = 10)
     String serviceName;
     @Column(name = "Price")
@@ -25,35 +25,5 @@ public class Service {
     @Column(name = "Image")
     String image;
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getServiceID() {
-        return serviceID;
-    }
-
-    public void setServiceID(String serviceID) {
-        this.serviceID = serviceID;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }

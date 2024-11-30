@@ -1,0 +1,164 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="user/fragments :: meta_css">
+
+</head>
+
+<body>
+
+<!--================Header Area =================-->
+<header th:replace="user/fragments :: header"></header>
+<section class="breadcrumb_area blog_banner_two">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle f_48">Elements</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Elements</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="button-area">
+
+    <div class="container border-top-generic">
+        <h3 class="text-heading title_color">Danh sách các ghế</h3>
+        <div style="display: flex">
+        <div class="button-group-area mt-40" style="width: 50%; flex:1">
+
+            <a th:each="number : ${numbers}" th:id="${number}" onclick="showModel2(this)" th:data-value="${number}" class="genric-btn info radius"  th:text="'Ghế '+${number}"></a>
+            <div class="modal__container" id="modal-container">
+                <div class="modal__content">
+                    <div class="modal__close close-modal" title="Close">
+                        <i class='bx bx-x'></i>
+                    </div>
+
+                    <img th:src="@{/modelPopup/img/result_ticket.png}" alt="" class="modal__img">
+
+                    <h1 class="modal__title">Thông tin cơ bản</h1>
+                    <input id="tax" style="margin:5px" type='text' name="departure" class="form-control" placeholder="Nhập TAX"/>
+                    <input style="margin:5px" type='text' name="departure" class="form-control" th:value="${user.name}" readonly/>
+                    <input style="margin:5px" type='text' name="departure" class="form-control" th:value="${user.email}" readonly/>
+                    <input style="margin: 5px " type='text' name="departure" class="form-control" th:value="${user.creditNum}" readonly/>
+                    <button th:data-value1="${user.userID}" th:data-value2="${flight.flightID}" class="modal__button modal__button-width" style="margin:5px" onclick="booking(this)">
+                        Đặt vé
+                    </button>
+
+                    <button class="modal__button-link close-modal" onclick="closeModal2()">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+            <img th:src="@{/user/image/blog/main-blog/seatChart.jpg}" style="margin-top: 20px" alt="">
+        </div>
+
+        <div class="blog_right_sidebar" style="width: 50%">
+            <aside class="single_sidebar_widget author_widget">
+                <img class="author_img rounded-circle" th:src="@{/user/image/blog/result_plane00.png}" alt="">
+                <h4 style="margin-top: 10px" th:text="'Máy bay '+${flight.plane.name}"></h4>
+                <p>PTIT AIRLINE</p>
+                <div class="social_icon">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                    <a href="#"><i class="fa fa-behance"></i></a>
+                </div>
+                <p style="font-family : 'Times New Roman'">Ptit Airline là hãng hàng không hiện đại và trẻ trung, mang sứ mệnh kết nối hành khách với những hành trình đầy cảm xúc và trải nghiệm tuyệt vời. Với đội ngũ máy bay mới, dịch vụ tận tâm và các tuyến bay đa dạng, Ptit Airline cam kết mang đến sự thoải mái, an toàn và hài lòng tuyệt đối cho mỗi chuyến đi. Hãng không chỉ là người bạn đồng hành đáng tin cậy mà còn là cầu nối đưa bạn đến gần hơn với thế giới. Ptit Airline – Cất cánh giấc mơ, chạm đến tương lai!</p>
+                <div class="br"></div>
+            </aside>
+        </div>
+        </div>
+    </div>
+</section>
+<script th:inline="javascript">
+    var seat = 0;
+
+    function showModel2(element){
+        const modalContainer = document.getElementById("modal-container")
+        modalContainer.classList.add('show-modal')
+        seat = parseInt(element.getAttribute('data-value'))
+    }
+    function closeModal2(){
+        const modalContainer = document.getElementById('modal-container')
+        modalContainer.classList.remove('show-modal')
+    }
+    function booking(button) {
+        const userId = button.getAttribute('data-value1')
+        const flightId = button.getAttribute('data-value2')
+        const  input = document.getElementById('tax');
+        const tax = input.value
+        alert(userId+' '+tax+' '+seat+' '+flightId)
+        const data = {
+            tax: tax,
+            seat: seat,
+            userId: userId,
+            flightId: flightId
+
+        };
+
+        fetch('/flight-booking/booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Giải mã JSON từ server
+                } else {
+                    throw new Error();
+                }
+            })
+            .then(result => {
+                alert("Đặt vé thành công!")
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert(error);
+            });
+    }
+
+</script>
+<script th:inline="javascript">
+    window.onload = function checkSeats(){
+        const booleanList = /*[[${seatsCheck}]]*/ '[]';
+        for(let i=0; i<10; i++){
+            if(booleanList[i]){
+                const element = document.getElementById(String(i+1));
+                element.style.background = '#FF6347';
+                element.onclick = function (event) {
+                    event.preventDefault();
+                };
+            }
+
+        }
+
+    }
+</script>
+
+
+
+<footer th:replace="user/fragments :: footer"></footer>
+<!--================ End footer Area  =================-->
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script th:src="@{/user/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/user/js/popper.js}"></script>
+<script th:src="@{/user/js/bootstrap.min.js}"></script>
+<script th:src="@{/user/vendors/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{/user/js/jquery.ajaxchimp.min.js}"></script>
+<script th:src="@{/user/js/mail-script.js}"></script>
+<script th:src="@{/user/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js}"></script>
+<script th:src="@{/user/vendors/nice-select/js/jquery.nice-select.js}"></script>
+<script th:src="@{/user/js/stellar.js}"></script>
+<script th:src="@{/user/vendors/lightbox/simpleLightbox.min.js}"></script>
+<script th:src="@{/user/js/custom.js}"></script>
+<script th:src="@{/modelPopup/js/main.js}"></script>
+</body>
+</html>

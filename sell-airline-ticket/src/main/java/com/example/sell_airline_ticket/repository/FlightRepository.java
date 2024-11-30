@@ -18,4 +18,6 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
             "AND (CAST(f.depTime AS date) = :departureDate OR (:returnDate IS NOT NULL AND CAST(f.depTime AS date) = :returnDate))")
     List<Flight> searchFlights(@Param("departure") String departure, @Param("destination") String destination,
                                @Param("departureDate") LocalDate departureDate, @Param("returnDate") LocalDate returnDate);
+
 }
+

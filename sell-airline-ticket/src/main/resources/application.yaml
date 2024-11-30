@@ -1,5 +1,6 @@
 #spring.application.name=sell-airline-ticket
 server:
+  address: 0.0.0.0
   port: 8080
   servlet:
     context-path: /flight-booking
@@ -14,7 +15,7 @@ spring:
     cache: false
     mode: HTML
     encoding: UTF-8
-    prefix: file:src/main/resources/templates/
+    prefix: classpath:/templates/
   jpa:
     show-sql: true
     properties:
