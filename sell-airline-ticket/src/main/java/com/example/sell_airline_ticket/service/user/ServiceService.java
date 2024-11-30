@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ServiceService {
     List<Service> getAllService();
+    Service getServiceById(String id);
 }
