@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.security.Principal;
 
 @Controller
-public class Test {
+public class    Test {
     @GetMapping({"/", "/index.html"})
     public String index() {
         return "user/index";
@@ -24,5 +24,10 @@ public class Test {
     @GetMapping("/login.html")
     public String loginPage() {
         return "user/login";
+    }
+
+    @GetMapping("/register.html")
+    public String registerPage() {
+        return "user/register";
     }
 }
