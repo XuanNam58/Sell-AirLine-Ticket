@@ -3805,11 +3805,11 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 }
 
-.img img{
+.img-login img{
 	width: 500px;
 }
 
-form{
+form-login{
 	width: 360px;
 }
 
@@ -3939,7 +3939,7 @@ a:hover{
 }
 
 
-.btn{
+.btn-login{
 	display: block;
 	width: 100%;
 	height: 50px;
@@ -3956,13 +3956,13 @@ a:hover{
 	cursor: pointer;
 	transition: .5s;
 }
-.btn:hover{
+.btn-login:hover{
 	background-position: right;
 }
 
 
 @media screen and (max-width: 1050px){
-	.container{
+	.container-login{
 		grid-gap: 5rem;
 	}
 }
@@ -3983,7 +3983,7 @@ a:hover{
 }
 
 @media screen and (max-width: 900px){
-	.container{
+	.container-login{
 		grid-template-columns: 1fr;
 	}
 
