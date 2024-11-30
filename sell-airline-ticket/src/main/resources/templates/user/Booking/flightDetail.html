@@ -89,7 +89,7 @@
         const modalContainer = document.getElementById("modal-container")
         modalContainer.classList.add('show-modal')
         seat = parseInt(element.getAttribute('data-value'))
-        setTimeout(closeModal3, 5000);
+        setTimeout(closeModal3, 20000);
 
 
     }
@@ -99,7 +99,6 @@
         const flightId = button.getAttribute('data-value2')
         const  input = document.getElementById('tax');
         const tax = input.value
-        alert(userId+' '+tax+' '+seat+' '+flightId)
         const data = {
             tax: tax,
             seat: seat,
@@ -169,6 +168,7 @@
 <script th:src="@{/user/js/stellar.js}"></script>
 <script th:src="@{/user/vendors/lightbox/simpleLightbox.min.js}"></script>
 <script th:src="@{/user/js/custom.js}"></script>
+<script th:src="@{/user/js/base.js}"></script>
 <script th:src="@{/modelPopup/js/main.js}"></script>
 </body>
 </html>
