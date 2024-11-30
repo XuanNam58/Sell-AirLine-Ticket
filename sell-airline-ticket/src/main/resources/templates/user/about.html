@@ -1,182 +1,140 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head th:replace="user/fragments :: meta_css"></head>
-    <body>
-        <!--================Header Area =================-->
-        <header th:replace="user/fragments :: header"></header>
-        <!--================Header Area =================-->
-        
-        <!--================Breadcrumb Area =================-->
-        <section class="breadcrumb_area">
-            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-            <div class="container">
-                <div class="page-cover text-center">
-                    <h2 class="page-cover-tittle">About Us</h2>
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active">About</li>
-                    </ol>
+<body>
+<!--================Header Area =================-->
+<header th:replace="user/fragments :: header"></header>
+<!--================Header Area =================-->
+
+<!--================Breadcrumb Area =================-->
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">Về Chúng Tôi</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li class="active">Về Chúng Tôi</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<!--================Breadcrumb Area =================-->
+
+<!--================ About History Area  =================-->
+<section class="about_history_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d_flex align-items-center">
+                <div class="about_content">
+                    <h2 class="title title_color">Lịch Sử <br> Sứ Mệnh & Tầm Nhìn</h2>
+                    <p>
+                        Chúng tôi là nền tảng đặt vé máy bay hàng đầu tại Việt Nam, giúp hàng triệu khách hàng tìm kiếm và đặt vé một cách nhanh chóng, dễ dàng và tiết kiệm.
+                        Với mạng lưới đối tác từ các hãng hàng không lớn trên thế giới, chúng tôi tự hào mang lại sự tiện lợi và trải nghiệm tuyệt vời cho người dùng.
+                    </p>
+                    <p>
+                        Sứ mệnh của chúng tôi là kết nối con người với mọi nơi trên thế giới, giúp các chuyến đi của bạn trở nên dễ dàng và đáng nhớ hơn.
+                    </p>
+                    <a href="#" class="button_hover theme_btn_two">Liên Hệ Ngay</a>
                 </div>
             </div>
-        </section>
-        <!--================Breadcrumb Area =================-->
-        
-        <!--================ About History Area  =================-->
-        <section class="about_history_area section_gap">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 d_flex align-items-center">
-                        <div class="about_content ">
-                            <h2 class="title title_color">About Us <br>Our History<br>Mission & Vision</h2>
-                            <p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
-                            <a href="#" class="button_hover theme_btn_two">Request Custom Price</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img class="img-fluid" src="image/about_bg.jpg" alt="img">
-                    </div>
+            <div class="col-md-6">
+                <img class="img-fluid" th:src="@{user/image/about.jpg}" alt="Về chúng tôi">
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ About History Area  =================-->
+
+<!--================ Facilities Area  =================-->
+<section class="facilities_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_w">Dịch Vụ Nổi Bật</h2>
+            <p>Những tiện ích vượt trội giúp chuyến đi của bạn hoàn hảo hơn.</p>
+        </div>
+        <div class="row mb_30">
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-plane"></i>Đặt Vé Nhanh</h4>
+                    <p>Cung cấp hàng ngàn chuyến bay giá tốt từ các hãng hàng không uy tín.</p>
                 </div>
             </div>
-        </section>
-        <!--================ About History Area  =================-->
-        
-        <!--================ Facilities Area  =================-->
-        <section class="facilities_area section_gap">
-            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">  
-            </div>
-            <div class="container">
-                <div class="section_title text-center">
-                    <h2 class="title_w">Royal Facilities</h2>
-                    <p>Who are in extremely love with eco friendly system.</p>
-                </div>
-                <div class="row mb_30">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="facilities_item">
-                            <h4 class="sec_h4"><i class="lnr lnr-dinner"></i>Restaurant</h4>
-                            <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="facilities_item">
-                            <h4 class="sec_h4"><i class="lnr lnr-bicycle"></i>Sports CLub</h4>
-                            <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="facilities_item">
-                            <h4 class="sec_h4"><i class="lnr lnr-shirt"></i>Swimming Pool</h4>
-                            <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="facilities_item">
-                            <h4 class="sec_h4"><i class="lnr lnr-car"></i>Rent a Car</h4>
-                            <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="facilities_item">
-                            <h4 class="sec_h4"><i class="lnr lnr-construction"></i>Gymnesium</h4>
-                            <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="facilities_item">
-                            <h4 class="sec_h4"><i class="lnr lnr-coffee-cup"></i>Bar</h4>
-                            <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                        </div>
-                    </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-location"></i>Tìm Điểm Đến</h4>
+                    <p>Gợi ý điểm đến hấp dẫn và thông tin chuyến bay chi tiết.</p>
                 </div>
             </div>
-        </section>
-        <!--================ Facilities Area  =================-->
-        
-        <!--================ Testimonial Area  =================-->
-        <section class="testimonial_area section_gap">
-            <div class="container">
-                <div class="section_title text-center">
-                    <h2 class="title_color">Testimonial from our Clients</h2>
-                    <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-clock"></i>Hỗ Trợ 24/7</h4>
+                    <p>Đội ngũ chăm sóc khách hàng luôn sẵn sàng hỗ trợ bất kỳ lúc nào.</p>
                 </div>
-                <div class="testimonial_slider owl-carousel">
-                    <div class="media testimonial_item">
-                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                        <div class="media-body">
-                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                            <div class="star">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star-half-o"></i></a>
-                            </div>
-                        </div>
-                    </div>    
-                    <div class="media testimonial_item">
-                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                        <div class="media-body">
-                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                            <div class="star">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star-half-o"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="media testimonial_item">
-                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                        <div class="media-body">
-                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                            <div class="star">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star-half-o"></i></a>
-                            </div>
-                        </div>
-                    </div>    
-                    <div class="media testimonial_item">
-                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                        <div class="media-body">
-                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                            <div class="star">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star-half-o"></i></a>
-                            </div>
-                        </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ Facilities Area  =================-->
+
+<!--================ Testimonial Area  =================-->
+<section class="testimonial_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Khách Hàng Nói Gì?</h2>
+            <p>Đánh giá từ khách hàng về dịch vụ của chúng tôi.</p>
+        </div>
+        <div class="testimonial_slider owl-carousel">
+            <div class="media testimonial_item">
+                <div class="media-body">
+                    <p>“Dịch vụ nhanh chóng và tiện lợi, giá cả phải chăng. Tôi rất hài lòng với trải nghiệm này.”</p>
+                    <a href="#"><h4 class="sec_h4">Lương Đạt Thiện</h4></a>
+                    <div class="star">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
                     </div>
                 </div>
             </div>
-        </section>
-        <!--================ Testimonial Area  =================-->
-        
-        <!--================ start footer Area  =================-->
-        <footer th:replace="user/fragments :: footer"></footer>
-		<!--================ End footer Area  =================-->
-        
-        
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script th:src="@{/user/js/jquery-3.2.1.min.js}"></script>
-        <script th:src="@{/user/js/popper.js}"></script>
-        <script th:src="@{/user/js/bootstrap.min.js}"></script>
-        <script th:src="@{/user/vendors/owl-carousel/owl.carousel.min.js}"></script>
-        <script th:src="@{/user/js/jquery.ajaxchimp.min.js}"></script>
-        <script th:src="@{/user/js/mail-script.js}"></script>
-        <script th:src="@{/user/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js}"></script>
-        <script th:src="@{/user/vendors/nice-select/js/jquery.nice-select.js}"></script>
-        <script th:src="@{/user/js/stellar.js}"></script>
-        <script th:src="@{/user/vendors/lightbox/simpleLightbox.min.js}"></script>
-        <script th:src="@{/user/js/custom.js}"></script>
-    </body>
+            <div class="media testimonial_item">
+                <div class="media-body">
+                    <p>“Chuyến bay được đặt rất dễ dàng, thông tin đầy đủ và chính xác.”</p>
+                    <a href="#"><h4 class="sec_h4">Lê Ngọc Luân</h4></a>
+                    <div class="star">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="media testimonial_item">
+                <div class="media-body">
+                    <p>“Dịch vụ rất uy tín, nhân viên hỗ trợ nhiệt tình. Tôi sẽ tiếp tục sử dụng.”</p>
+                    <a href="#"><h4 class="sec_h4">Vũ Thị Thanh Thuỳ</h4></a>
+                    <div class="star">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="media testimonial_item">
+                <div class="media-body">
+                    <p>“Giá vé hợp lý, giao diện dễ sử dụng. Tôi rất hài lòng.”</p>
+                    <a href="#"><h4 class="sec_h4">Đặng Xuân Nam</h4></a>
+                    <div class="star">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ Testimonial Area  =================-->
+
+<!--================ start footer Area  =================-->
+<footer th:replace="user/fragments :: footer"></footer>
+<!--================ End footer Area  =================-->
+
+<!-- Optional JavaScript -->
+<script th:src="@{/user/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/user/js/popper.js}"></script>
+<script th:src="@{/user/js/bootstrap.min.js}"></script>
+<script th:src="@{/user/vendors/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{/user/js/custom.js}"></script>
+</body>
 </html>
