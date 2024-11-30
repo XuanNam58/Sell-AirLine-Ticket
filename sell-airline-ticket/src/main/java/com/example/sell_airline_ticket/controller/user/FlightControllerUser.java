@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.sell_airline_ticket.entity.Ticket;
+import org.springframework.web.bind.annotation.RequestHeader;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +28,9 @@ public class FlightControllerUser {
     @Autowired
     com.example.sell_airline_ticket.repository.UserRepository userRepo;
     @GetMapping("/flightDetail/{flightId}")
-    public String flightDetail(@PathVariable int flightId, Model model) {
+    public String flightDetail(@RequestHeader("Authorization") String authorizationHeader
+            , @PathVariable int flightId
+            , Model model) {
         List<Integer> numbers = IntStream.rangeClosed(1, 10)
                 .boxed()
                 .collect(Collectors.toList());
