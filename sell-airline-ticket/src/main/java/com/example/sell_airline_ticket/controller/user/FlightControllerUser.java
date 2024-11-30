@@ -2,6 +2,8 @@ package com.example.sell_airline_ticket.controller.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import  org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,10 @@ public class FlightControllerUser {
         model.addAttribute("numbers", numbers);
         com.example.sell_airline_ticket.entity.Flight flight = flightRepository.findById(flightId).orElseThrow(() -> new RuntimeException("Không tồn tại mã chuyến bay!"));
         model.addAttribute("flight", flight);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        System.out.println(username);
 
         com.example.sell_airline_ticket.entity.User user = userRepo.findById("0001").orElseThrow(() -> new RuntimeException("Không tồn tại khách hàng!"));
         model.addAttribute("user", user);
