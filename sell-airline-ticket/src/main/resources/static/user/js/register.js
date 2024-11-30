@@ -1,14 +1,15 @@
 const step1Form = document.getElementById("step1");
 const step2Form = document.getElementById("step2");
 
-document.querySelector("#step2 .btn").addEventListener("click", function(event) {
+document.querySelector("#step2 .btn-login").addEventListener("click", function(event) {
     event.preventDefault();
 
     const registerData = {
         name: step1Form.querySelector("input[name='fullname']").value,
-        phoneNum: step1Form.querySelector("input[name='telephone']").value,
+        phoneNum: step1Form.querySelector("input[name='phoneNum']").value,
         email: step1Form.querySelector("input[name='email']").value,
-        creditNum: step1Form.querySelector("input[name='cardNum']").value,
+        citizenID: step1Form.querySelector("input[name='citizenId']").value,
+        creditNum: step1Form.querySelector("input[name='creditNum']").value,
         username: step2Form.querySelector("input[name='username']").value,
         password: step2Form.querySelector("input[name='password']").value,
     };
@@ -21,7 +22,7 @@ document.querySelector("#step2 .btn").addEventListener("click", function(event) 
     const confirmPassword=step2Form.querySelector("input[name='rewritePassword']").value
     // Check pasword
     if (registerData.password !== confirmPassword) {
-        showMessage(false,"Mật khẩu không khớp");
+        showNoticeMessage(false,"Mật khẩu không khớp");
         return;
     }
 
@@ -29,35 +30,11 @@ document.querySelector("#step2 .btn").addEventListener("click", function(event) 
         .then(response => response.json())
         .then(data => {
             if (data.success){
-                localStorage.setItem("jwtToken", data.token);
                 window.location.href = "/flight-booking/login.html";
             } else {
-                showMessage(data.success, data.message || "Đăng ký thất bại!");
-                console.log(data)
+                showNoticeMessage(data.success, data.message || "Đăng ký thất bại!");
             }
         });
 });
 
-function showMessage(dataStatus, dataMessage) {
-    let noticeContainer;
-    let noticeMessage;
 
-    if (dataStatus) {
-        noticeContainer = document.getElementById("success-notice");
-        noticeMessage = document.getElementById("success-message");
-        console.log("succ")
-
-    } else {
-        noticeContainer = document.getElementById("error-notice");
-        noticeMessage = document.getElementById("error-message");
-        console.log("err")
-
-    }
-
-    noticeContainer.style.display = "block";
-    noticeMessage.textContent = dataMessage;
-
-    setTimeout(function() {
-        noticeContainer.style.display = "none";
-    }, 2000);  // Ẩn sau 2 giây
-}
