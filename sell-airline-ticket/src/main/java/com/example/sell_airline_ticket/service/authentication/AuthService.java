@@ -10,7 +10,6 @@ import com.example.sell_airline_ticket.repository.AccountRepository;
 import com.example.sell_airline_ticket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,8 +21,6 @@ import org.springframework.security.core.Authentication;
 
 import java.util.Optional;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 
 @Service
 @RequiredArgsConstructor
@@ -40,8 +37,7 @@ public class AuthService {
     private final AccountRepository accountRepository;
     @Autowired
     private final BCryptPasswordEncoder passwordEncoder;
-//    @Autowired
-//    private RedisTemplate<String, Object> redisTemplate;
+
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         try {
@@ -53,9 +49,6 @@ public class AuthService {
             );
 
             String token = jwtService.generateToken(authentication);
-
-//            String redisKey = "TOKEN:" + request.getUsername();
-//            redisTemplate.opsForValue().set(redisKey, token, 720, TimeUnit.MINUTES);
 
             return AuthenticationResponse.builder()
                     .token(token)
@@ -77,12 +70,16 @@ public class AuthService {
 
         Optional<Account> accountOptional = accountRepository.findByUsername(request.getUsername());
         if (accountOptional.isPresent()){
-            message="Username đã tồn tại";
-            success=false;
+            return
+                    RegisterResponse.builder()
+                            .message("Username đã tồn tại")
+                            .success(false)
+                            .build();
         }
 
         User user = new User();
         try{
+            user.setUserID(generateUserId());
             user.setName(request.getName());
             user.setEmail(request.getEmail());
             user.setPhoneNum(request.getPhoneNum());
@@ -91,8 +88,11 @@ public class AuthService {
             user.setStatus(true);
             userRepository.save(user);
         } catch (Exception e) {
-            message="Không thể tạo user";
-            success=false;
+            return
+                    RegisterResponse.builder()
+                            .message("Không thể tạo user")
+                            .success(false)
+                            .build();
         }
 
         try{
@@ -103,13 +103,16 @@ public class AuthService {
             account.setStatus(true);
             accountRepository.save(account);
         } catch (Exception e) {
-            message="Không thể tạo tài khoản";
-            success=false;
+            return
+                    RegisterResponse.builder()
+                            .message("Không thể tạo tài khoản")
+                            .success(false)
+                            .build();
         }
         try {
              return RegisterResponse.builder()
-                     .message(message)
-                     .success(success)
+                     .message("Đăng ký thành công")
+                     .success(true)
                      .build();
         } catch (Exception e) {
             return
@@ -128,16 +131,6 @@ public class AuthService {
         javaMailSender.send(simpleMailMessage);
     }
 
-    private String generateRandomPassword(){
-        int length = 10;
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i<length;i++){
-            sb.append(chars.charAt(random.nextInt(chars.length())));
-        }
-        return sb.toString();
-    }
 
     public void forgotPassword(String email){
         Optional<User> userOp = userRepository.findUserByEmail(email);
@@ -158,5 +151,36 @@ public class AuthService {
         String subject = "Reset mật khẩu thành công";
         String text = "Mật khẩu mới của bạn là: " + newPassword + "\nVui lòng đăng nhập và thay đổi mật khẩu ngay lập tức.";
         sendSimpleMail(email, subject, text);
+    }
+
+    public String generateUserId() {
+        Random random = new Random();
+        String UserId = "";
+        while (UserId.isEmpty() || userRepository.findById(UserId).isPresent()){
+            UserId = "KH" + generateRandomString();
+        }
+        return UserId;
+    }
+
+    private String generateRandomPassword(){
+        int length = 10;
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i<length;i++){
+            sb.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return sb.toString();
+    }
+
+    private String generateRandomString(){
+        int length = 7;
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i<length;i++){
+            sb.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return sb.toString();
     }
 }
