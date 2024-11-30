@@ -12,11 +12,7 @@ import java.security.Principal;
 @Controller
 public class    Test {
     @GetMapping({"/", "/index.html"})
-    public String index(Model model, Principal principal) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAuthenticated = (authentication != null && authentication.isAuthenticated());
-        model.addAttribute("isAuthenticated", isAuthenticated);
+    public String index() {
         return "user/index";
     }
 

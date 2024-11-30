@@ -1,5 +1,6 @@
 #spring.application.name=sell-airline-ticket
 server:
+  address: 0.0.0.0
   port: 8080
   servlet:
     context-path: /flight-booking
@@ -9,6 +10,12 @@ spring:
     driver-class-name: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
     username: sa
     password: 123456
+
+  thymeleaf: # Thymeleaf
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:/templates/
   jpa:
     show-sql: true
     properties:
@@ -28,3 +35,8 @@ spring:
           starttls:
             enable: true
     default-encoding: UTF-8
+
+  data:
+    redis:
+      host: localhost
+      port: 6379

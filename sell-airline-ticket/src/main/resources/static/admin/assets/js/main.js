@@ -3,6 +3,13 @@ $.noConflict();
 function fetchCustomerInfo(button) {
     var flightID = button.getAttribute('data-flightid');
     var seatID = button.getAttribute('data-seatid');
+    var seatNum = button.getAttribute('data-seatnum');
+
+    var deleteButton = document.getElementById('deleteButton');
+    deleteButton.setAttribute(
+        'onclick',
+        `window.location.href='/flight-booking/admin/ticket/deleteticket/${flightID}/${seatNum}'`
+    );
 
     fetch(`/flight-booking/admin/seat-rest/customer-info/${flightID}/${seatID}`)
         .then(response => {

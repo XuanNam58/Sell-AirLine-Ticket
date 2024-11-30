@@ -18,7 +18,7 @@ public class Flight {
     @Column(name = "FlightId", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer flightID;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PlaneId")
     com.example.sell_airline_ticket.entity.Plane plane;
     @Column(name = "Departure", length = 50)
@@ -29,4 +29,6 @@ public class Flight {
     LocalDateTime depTime;
     @Column(name = "ArrTime")
     LocalDateTime arrTime;
+    @Column(name = "Price")
+    float price;
 }

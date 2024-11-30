@@ -15,14 +15,15 @@ import com.example.sell_airline_ticket.entity.Flight;
 @Table(name = "Ticket")
 public class Ticket {
     @Id
-    @Column(name = "TicketId", length = 10, nullable = false)
-    String ticketID;
+    @Column(name = "TicketId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int ticketID;
 
     @Column(name = "Type", length = 15, nullable = true)
     String type;
 
     @Column(name = "Tax", nullable = true)
-    Float tax;
+    String tax;
 
     @Column(name = "Status")
     Boolean status;
@@ -30,10 +31,10 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserId")
     User user;
-    @Column(name = "SeatNum")
+    @Column(name = "Seat_Num")
     Integer seatNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FlightId")
+    @JoinColumn(name = "Flight_Id")
      Flight flight;
 }

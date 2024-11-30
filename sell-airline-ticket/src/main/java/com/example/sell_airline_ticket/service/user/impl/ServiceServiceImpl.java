@@ -15,4 +15,9 @@ public class ServiceServiceImpl implements ServiceService {
     public List<Service> getAllService(){
         return serviceRepo.findAll();
     }
+    @Override
+    public Service getServiceById(String serviceId){
+        return serviceRepo.findById(serviceId).orElseThrow(() -> new RuntimeException("Không tồn tại mã dịch vụ!"));
+    }
+
 }

@@ -15,15 +15,17 @@ import com.example.sell_airline_ticket.entity.Service;
 @Table(name = "ServiceDetail")
 public class ServiceDetail {
     @Id
-    @Column(name = "ServiceDetailID")
+    @Column(name = "ServiceDetailId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer serviceDetailID;
+    Integer serviceDetailId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TicketID")
+    @JoinColumn(name = "TicketId")
     Ticket ticket;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ServiceID")
+    @JoinColumn(name = "ServiceId")
     Service service;
+    @Column(name="Quantity")
+    Integer quantity;
 }

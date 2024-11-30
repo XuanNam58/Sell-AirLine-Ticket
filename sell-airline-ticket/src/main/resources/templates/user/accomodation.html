@@ -1,7 +1,11 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="user/fragments :: meta_css"></head>
+<head th:replace="user/fragments :: meta_css">
+
+</head>
+
 <body>
+
         <!--================Header Area =================-->
         <header th:replace="user/fragments :: header"></header>
         <!--================Header Area =================-->
@@ -67,53 +71,89 @@
                     <p>Cung cấp một vài dịch vụ cho quý khách thoải mái lựa chọn</p>
                 </div>
 
-                <div class="row accomodation_two" th:each="service, index : ${listService.subList(0, 3)}" >
+                <div class="input-group-icon mt-10" style="margin-bottom: 20px; width: 30%">
+                    <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
+                    <div class="form-select" id="default-select">
+                        <select id="combobox-ticket" >
+                            <option value="" disabled selected>Chọn vé của bạn...</option>
+                            <option th:each="ticket :${tickets}" th:value="${ticket.ticketID}" th:text="'Chuyến '+${ticket.flight.flightID}+' đến ' + ${ticket.flight.destination}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row accomodation_two"  >
 
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="accomodation_item text-center">
-                                <div class="hotel_img">
-                                    <img th:src="@{'/user/image/Service/' + ${service.image}}" alt="">
-                                    <a href="#" class="btn theme_btn button_hover">Đặt</a>
-                                </div>
-                                <a href="#"><h4 class="sec_h4" th:text="${service.serviceName}"></h4></a>
-                                <h5 th:text="${listService[index.index + 0].price + ' VND'}"><small>VND</small></h5>
+                    <div class="col-lg-3 col-sm-6" th:each="service, index : ${listService}">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+                                <img th:src="@{'/user/image/Service/' + ${service.image}}" alt="">
+                                <a onclick="serviceOrder(this)" th:data-value="${service.serviceId}" class="btn theme_btn button_hover">Đặt</a>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="accomodation_item text-center">
-                                <div class="hotel_img">
-                                    <img th:src="@{'/user/image/Service/' + ${listService[index.index + 3].image}}" alt="">
-                                    <a href="#" class="btn theme_btn button_hover">Đặt</a>
-                                </div>
-                                <a href="#"><h4 class="sec_h4" th:text="${listService[index.index + 3].serviceName}"></h4></a>
-                                <h5 th:text="${listService[index.index + 3].price + ' VND'}"><small>VND</small></h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="accomodation_item text-center">
-                                <div class="hotel_img">
-                                    <img th:src="@{'/user/image/Service/' + ${listService[index.index + 6].image}}" alt="">
-                                    <a href="#" class="btn theme_btn button_hover">Đặt</a>
-                                </div>
-                                <a href="#"><h4 class="sec_h4" th:text="${listService[index.index + 6].serviceName}"></h4></a>
-                                <h5 th:text="${listService[index.index + 6].price + ' VND'}"><small>VND</small></h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="accomodation_item text-center">
-                                <div class="hotel_img">
-                                    <img th:src="@{'/user/image/Service/' + ${listService[index.index + 9].image}}" alt="">
-                                    <a href="#" class="btn theme_btn button_hover">Đặt</a>
-                                </div>
-                                <a href="#"><h4 class="sec_h4" th:text="${listService[index.index + 9].serviceName}"></h4></a>
-                                <h5 th:text="${listService[index.index + 9].price + ' VND'}"></h5>
-                            </div>
-                        </div>
+                            <a ><h4 class="sec_h4"  th:text="${service.serviceName}"></h4></a>
+                            <h5 th:text="${service.price + ' VND'}"><small>VND</small></h5>
 
-             </div>
+                            <div class="modal__container" id="modal-container">
+                                <div class="modal__content">
+                                    <div class="modal__close close-modal" title="Close">
+                                        <i class='bx bx-x'></i>
+                                    </div>
+
+                                    <img th:src="@{/modelPopup/img/checkingCart_rm.png}" alt="" class="modal__img">
+
+                                    <h1 class="modal__title">Đặt dịch vụ thành công!</h1>
+                                    <p class="modal__description">Ptit Airline xin cảm ơn</p>
+
+                                    <button class="modal__button modal__button-width" onclick="">
+                                        Xem danh sách dịch vụ
+                                    </button>
+
+                                    <button class="modal__button-link close-modal" onclick="closeModal()">
+                                        Đóng
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
 
             </div>
+
         </section>
+        <script>
+            function serviceOrder(element) {
+                const serviceId = element.getAttribute('data-value'),
+                    comboboxTicket = document.getElementById('combobox-ticket');
+                const ticketId = comboboxTicket.value
+
+                const data = {
+                    serviceId: serviceId,
+                    ticketId: ticketId,
+
+                };
+
+                fetch('/flight-booking/serviceOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json(); // Giải mã JSON từ server
+                        } else {
+                            throw new Error();
+                        }
+                    })
+                    .then(result => {
+                        const modalContainer = document.getElementById("modal-container")
+                        modalContainer.classList.add('show-modal')
+                    })
+                    .catch(error => {
+                        console.error('Lỗi:', error);
+                        alert(error);
+                    });
+            }
+        </script>
         <!--================ Accomodation Area  =================-->
         <!--================ start footer Area  =================-->
         <footer th:replace="user/fragments :: footer"></footer>
@@ -133,5 +173,6 @@
         <script th:src="@{/user/js/stellar.js}"></script>
         <script th:src="@{/user/vendors/lightbox/simpleLightbox.min.js}"></script>
         <script th:src="@{/user/js/custom.js}"></script>
+        <script th:src="@{/modelPopup/js/main.js}"></script>
     </body>
 </html>
