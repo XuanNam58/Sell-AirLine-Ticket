@@ -170,5 +170,52 @@
 <script th:src="@{/user/js/custom.js}"></script>
 <script th:src="@{/user/js/base.js}"></script>
 <script th:src="@{/modelPopup/js/main.js}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.0/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
+
+<script>
+    var stompClient = null;
+    var flightId = [[${flight.id}]]; // Lấy flight ID từ Thymeleaf
+
+    function connect() {
+        var socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/flight/' + flightId, function(response) {
+                var message = JSON.parse(response.body);
+                updateSeatStatus(message);
+            });
+        });
+    }
+
+    function selectSeat(seatNumber) {
+        if (stompClient) {
+            var message = {
+                flightId: flightId,
+                seatNumber: seatNumber,
+                status: 'selecting'
+            };
+            stompClient.send("/app/seat/select", {}, JSON.stringify(message));
+        }
+    }
+
+    function updateSeatStatus(message) {
+        // Nếu ghế đang được người khác chọn
+        if (message.status === 'selecting') {
+            // Disable nút chọn ghế và hiển thị thông báo
+            $("#seat-" + message.seatNumber).prop('disabled', true);
+            alert("Ghế số " + message.seatNumber + " đang được người khác chọn!");
+        }
+    }
+
+    // Kết nối WebSocket khi trang được load
+    $(document).ready(function() {
+        connect();
+    });
+</script>
+
 </body>
 </html>

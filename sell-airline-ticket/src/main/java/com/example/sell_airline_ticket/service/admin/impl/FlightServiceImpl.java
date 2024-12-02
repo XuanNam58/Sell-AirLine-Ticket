@@ -20,19 +20,19 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> getFlights() {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//        List<Flight> flightList = flightRepository.findAll();
-//        for (Flight flight : flightList){
-//            String arrTimeString = flight.getArrTime().toString();
-//            LocalDateTime arrTimeLDT = LocalDateTime.parse(arrTimeString, formatter);
-//
-//            String depTimeString = flight.getDepTime().toString();
-//            LocalDateTime depTimeLDT = LocalDateTime.parse(depTimeString, formatter);
-//
-//            flight.setArrTime(arrTimeLDT);
-//            flight.setDepTime(depTimeLDT);
-//
-//        }
+        //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        //        List<Flight> flightList = flightRepository.findAll();
+        //        for (Flight flight : flightList){
+        //            String arrTimeString = flight.getArrTime().toString();
+        //            LocalDateTime arrTimeLDT = LocalDateTime.parse(arrTimeString, formatter);
+        //
+        //            String depTimeString = flight.getDepTime().toString();
+        //            LocalDateTime depTimeLDT = LocalDateTime.parse(depTimeString, formatter);
+        //
+        //            flight.setArrTime(arrTimeLDT);
+        //            flight.setDepTime(depTimeLDT);
+        //
+        //        }
         return flightRepository.findAll();
     }
 
@@ -43,14 +43,13 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight getFlightById(Integer flightID) {
-        return flightRepository.findById(flightID).orElseThrow(() -> new
-                RuntimeException("Không tìm thấy chuyến bay."));
+        return flightRepository
+                .findById(flightID)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy chuyến bay."));
     }
 
     @Override
     public void saveFlight(Flight flight) {
         flightRepository.save(flight);
     }
-
-
 }
