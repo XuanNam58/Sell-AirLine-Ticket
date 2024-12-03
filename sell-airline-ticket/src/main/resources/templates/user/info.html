@@ -9,15 +9,17 @@
         body {
             background-color: #f8f9fa;
         }
-        .container {
-            margin-top: 50px;
+        .container-info {
+            margin: 50px !important;
         }
         .card-header {
             font-size: 1.25rem;
             font-weight: 600;
         }
-        .card-body {
+        .card-body-info {
+            margin: 50px !important;
             padding: 20px;
+            overflow: auto;
         }
         .tab-content .table th, .tab-content .table td {
             vertical-align: middle;
@@ -42,12 +44,13 @@
         </div>
     </div>
 </section>
+
 <!--================Banner Area =================-->
 
 <!--================ Thông Tin Khách Hàng =================-->
-<div class="container">
-    <div class="card shadow">
-        <div class="card-body">
+<div class="container-info">
+    <div class="card-info shadow">
+        <div class="card-body-info">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Thông Tin Cá Nhân</a>
@@ -61,11 +64,6 @@
                 <!-- Thông Tin Cá Nhân -->
                 <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                     <table class="table table-bordered">
-                        <tr th:each="user : ${users}">
-                            <th>Họ và Tên</th>
-                            <td th:text="${user.name}"></td>
-                            <td th:text="${user.name}"></td>
-                        </tr>
                         <tr>
                             <th>Họ và Tên</th>
                             <td>Nguyễn Văn A</td>
@@ -134,7 +132,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

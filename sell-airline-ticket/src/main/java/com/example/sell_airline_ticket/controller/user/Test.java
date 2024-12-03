@@ -24,4 +24,7 @@ public class Test {
     public String registerPage() {
         return "user/register";
     }
+
+    @GetMapping("/info.html")
+    public String info(){ return "user/info";}
 }
