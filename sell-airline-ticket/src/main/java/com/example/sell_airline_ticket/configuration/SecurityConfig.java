@@ -1,13 +1,8 @@
 package com.example.sell_airline_ticket.configuration;
 
-import com.example.sell_airline_ticket.security.JwtAuthenticationFilter;
-import com.example.sell_airline_ticket.service.authentication.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -24,12 +19,16 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.example.sell_airline_ticket.security.JwtAuthenticationFilter;
+import com.example.sell_airline_ticket.service.authentication.CustomUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
@@ -39,17 +38,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/flight-booking/user/infor.html").authenticated()
-                        .anyRequest().permitAll())
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
+                .authorizeHttpRequests((auth) -> auth.requestMatchers("/flight-booking/user/infor.html")
+                        .authenticated()
+                        .anyRequest()
+                        .permitAll())
+                .logout(logout -> logout.logoutUrl("/logout")
                         .logoutSuccessUrl("/index.html")
-                        .invalidateHttpSession(true)
-                )
+                        .invalidateHttpSession(true))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-        ;
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
@@ -67,24 +64,23 @@ public class SecurityConfig {
         return new CorsFilter(urlBasedCorsConfigurationSource);
     }
 
-
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(customUserDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
 
-//    @Bean
-//    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-//        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
-//        redisTemplate.setConnectionFactory(redisConnectionFactory);
-//
-//        redisTemplate.setKeySerializer(new StringRedisSerializer());
-//        redisTemplate.setValueSerializer(new StringRedisSerializer());
-//        return redisTemplate;
-//    }
+    //    @Bean
+    //    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    //        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+    //        redisTemplate.setConnectionFactory(redisConnectionFactory);
+    //
+    //        redisTemplate.setKeySerializer(new StringRedisSerializer());
+    //        redisTemplate.setValueSerializer(new StringRedisSerializer());
+    //        return redisTemplate;
+    //    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
@@ -98,6 +94,6 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web->web.ignoring().requestMatchers("/static/**");
+        return web -> web.ignoring().requestMatchers("/static/**");
     }
 }

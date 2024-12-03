@@ -1,18 +1,15 @@
 package com.example.sell_airline_ticket.controller.admin;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.example.sell_airline_ticket.entity.Flight;
-import com.example.sell_airline_ticket.service.admin.PlaneService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.sell_airline_ticket.entity.Flight;
 import com.example.sell_airline_ticket.service.admin.FlightService;
+import com.example.sell_airline_ticket.service.admin.PlaneService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
