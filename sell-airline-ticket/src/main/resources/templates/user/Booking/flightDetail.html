@@ -96,12 +96,12 @@
     function showModel2(element){
             const seatNum = parseInt(element.getAttribute('data-value'));
             <!--        Gửi thông báo qua websocket-->
-
+            selectSeat(seatNum);
             <!--        Hiển thị modal-->
             const modalContainer = document.getElementById("modal-container")
             modalContainer.classList.add('show-modal')
             seat = parseInt(element.getAttribute('data-value'))
-            selectSeat(seatNum);
+
             timeoutId = setTimeout(() => {
                 closeModal3();
             }, 20000);
@@ -145,6 +145,7 @@
             .catch(error => {
                 console.error('Lỗi:', error);
                 alert(error);
+                window.location.reload();
             });
     }
 
@@ -242,7 +243,7 @@
                 seatElement.style.background = '#A9A9A9';
                 seatElement.onclick = function(event){
                     event.preventDefault();
-                    alert("Ghế này đã được đặt!")
+                    alert("Ghế này đang được người khác đặt!")
                 }
             }
 
@@ -256,7 +257,7 @@
                 seatElement.classList.add("genric-btn", "info", "radius");
                 seatElement.onclick = function(event){
                     event.preventDefault();
-                    showModel2();
+                    showModel2(seatElement);
                 }
             }
 
