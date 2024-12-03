@@ -1,7 +1,5 @@
 package com.example.sell_airline_ticket.util;
 
-import java.util.Locale;
-
 public class StringUtils {
     public static String capitalizeAndTrim(String input) {
         /*Delete redundant spaces*/

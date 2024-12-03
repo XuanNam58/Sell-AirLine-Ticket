@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import com.example.sell_airline_ticket.entity.User;
-import com.example.sell_airline_ticket.entity.Flight;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -31,10 +30,11 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserId")
     User user;
+
     @Column(name = "Seat_Num")
     Integer seatNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Flight_Id")
-     Flight flight;
+    Flight flight;
 }

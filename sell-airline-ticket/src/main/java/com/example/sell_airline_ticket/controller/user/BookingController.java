@@ -1,29 +1,30 @@
 package com.example.sell_airline_ticket.controller.user;
 
-import com.example.sell_airline_ticket.util.StringUtils;
-import org.springframework.format.annotation.DateTimeFormat;
-import  org.springframework.ui.Model;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import com.example.sell_airline_ticket.entity.Flight;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.sell_airline_ticket.util.StringUtils;
+
 @Controller
 public class BookingController {
     @Autowired
     private com.example.sell_airline_ticket.service.user.impl.FlightService flightSer;
+
     @GetMapping("/search.html")
-    public String Search(@RequestParam("departure") String departure,
-                         @RequestParam("destination") String destination,
-                         @RequestParam("departureDate") String departureDateStr,
-                         @RequestParam(value = "returnDate", required = false) String returnDateStr,
-                         @RequestParam("tripType") String tripType,
-                         Model model) {
+    public String Search(
+            @RequestParam("departure") String departure,
+            @RequestParam("destination") String destination,
+            @RequestParam("departureDate") String departureDateStr,
+            @RequestParam(value = "returnDate", required = false) String returnDateStr,
+            @RequestParam("tripType") String tripType,
+            Model model) {
 
         // Định dạng ngày giờ
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -38,18 +39,21 @@ public class BookingController {
 
         List<com.example.sell_airline_ticket.entity.Flight> allFlights = flightSer.getAllFlight();
 
-//        boolean departureAvailable = allFlights.stream()
-//                .anyMatch(flight -> flight.getDepTime().toLocalDate().equals(departureDate));
-//
-//        boolean returnAvailable = allFlights.stream()
-//                .anyMatch(flight -> flight.getDepTime().toLocalDate().equals(returnDate));
+        //        boolean departureAvailable = allFlights.stream()
+        //                .anyMatch(flight -> flight.getDepTime().toLocalDate().equals(departureDate));
+        //
+        //        boolean returnAvailable = allFlights.stream()
+        //                .anyMatch(flight -> flight.getDepTime().toLocalDate().equals(returnDate));
 
-//        if (departureAvailable && returnAvailable) {
-            model.addAttribute("flights", flightSer.searchFlights(StringUtils.capitalizeAndTrim(departure),
-                    StringUtils.capitalizeAndTrim(destination),
-                    departureDate,
-                    returnDate));
-//        }
+        //        if (departureAvailable && returnAvailable) {
+        model.addAttribute(
+                "flights",
+                flightSer.searchFlights(
+                        StringUtils.capitalizeAndTrim(departure),
+                        StringUtils.capitalizeAndTrim(destination),
+                        departureDate,
+                        returnDate));
+        //        }
 
         return "user/Service/ticket-booking-view";
     }

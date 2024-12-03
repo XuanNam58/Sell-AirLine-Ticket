@@ -1,35 +1,35 @@
 package com.example.sell_airline_ticket.security;
 
-import com.example.sell_airline_ticket.service.authentication.JwtService;
+import java.io.IOException;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
+import com.example.sell_airline_ticket.service.authentication.JwtService;
+
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-//    @Autowired
-//    private RedisTemplate<String, String> redisTemplate;
+    //    @Autowired
+    //    private RedisTemplate<String, String> redisTemplate;
 
     private final JwtService jwtService;
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         try {
             String token = getTokenFromRequest(request);
 
@@ -38,8 +38,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if (!username.equalsIgnoreCase("anonymousUser")) {
 
                     // Kiểm tra token trong Redis
-//                    String redisKey = "TOKEN:" + username;
-//                    String storedToken = redisTemplate.opsForValue().get(redisKey);
+                    //                    String redisKey = "TOKEN:" + username;
+                    //                    String storedToken = redisTemplate.opsForValue().get(redisKey);
 
                     Authentication authentication = jwtService.getAuthentication(token);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-        }
+    }
 
     private String getTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);

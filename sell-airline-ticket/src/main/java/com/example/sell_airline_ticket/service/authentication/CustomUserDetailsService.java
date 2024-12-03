@@ -1,18 +1,19 @@
 package com.example.sell_airline_ticket.service.authentication;
 
-import com.example.sell_airline_ticket.entity.Account;
-import com.example.sell_airline_ticket.entity.User;
-import com.example.sell_airline_ticket.repository.AccountRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.sell_airline_ticket.entity.Account;
+import com.example.sell_airline_ticket.entity.User;
+import com.example.sell_airline_ticket.repository.AccountRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -21,7 +22,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findByUsername(username)
+        Account account = accountRepository
+                .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + username));
 
         User user = account.getUser();
@@ -37,8 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
 
-        return org.springframework.security.core.userdetails.User
-                .builder()
+        return org.springframework.security.core.userdetails.User.builder()
                 .username(account.getUsername())
                 .password(account.getPassword())
                 .disabled(!account.getStatus())

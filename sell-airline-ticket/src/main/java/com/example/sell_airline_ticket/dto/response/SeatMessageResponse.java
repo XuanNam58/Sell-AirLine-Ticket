@@ -8,9 +8,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SeatResponse {
-    String seatID;
+public class SeatMessageResponse {
+    Integer flightId;
     Integer seatNum;
-    //    Class aClass;
-    Boolean isBooked;
+    String status;
 }

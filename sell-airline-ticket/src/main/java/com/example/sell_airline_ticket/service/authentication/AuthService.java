@@ -1,52 +1,54 @@
 package com.example.sell_airline_ticket.service.authentication;
 
-import com.example.sell_airline_ticket.dto.request.RegisterRequest;
-import com.example.sell_airline_ticket.dto.response.RegisterResponse;
-import com.example.sell_airline_ticket.entity.Account;
-import com.example.sell_airline_ticket.dto.request.AuthenticationRequest;
-import com.example.sell_airline_ticket.dto.response.AuthenticationResponse;
-import com.example.sell_airline_ticket.entity.User;
-import com.example.sell_airline_ticket.repository.AccountRepository;
-import com.example.sell_airline_ticket.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.Authentication;
 
-import java.util.Optional;
-import java.util.Random;
+import com.example.sell_airline_ticket.dto.request.AuthenticationRequest;
+import com.example.sell_airline_ticket.dto.request.RegisterRequest;
+import com.example.sell_airline_ticket.dto.response.AuthenticationResponse;
+import com.example.sell_airline_ticket.dto.response.RegisterResponse;
+import com.example.sell_airline_ticket.entity.Account;
+import com.example.sell_airline_ticket.entity.User;
+import com.example.sell_airline_ticket.repository.AccountRepository;
+import com.example.sell_airline_ticket.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
     @Autowired
     private final AuthenticationManager authenticationManager;
+
     @Autowired
     private final JwtService jwtService;
+
     @Autowired
     private final JavaMailSender javaMailSender;
+
     @Autowired
     private final UserRepository userRepository;
+
     @Autowired
     private final AccountRepository accountRepository;
+
     @Autowired
     private final BCryptPasswordEncoder passwordEncoder;
-
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            request.getUsername(),
-                            request.getPassword()
-                    )
-            );
+                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
             String token = jwtService.generateToken(authentication);
 
@@ -64,21 +66,20 @@ public class AuthService {
         }
     }
 
-    public RegisterResponse registerNewAccount(RegisterRequest request){
-        String message="Đăng ký thành công";
-        boolean success=true;
+    public RegisterResponse registerNewAccount(RegisterRequest request) {
+        String message = "Đăng ký thành công";
+        boolean success = true;
 
         Optional<Account> accountOptional = accountRepository.findByUsername(request.getUsername());
-        if (accountOptional.isPresent()){
-            return
-                    RegisterResponse.builder()
-                            .message("Username đã tồn tại")
-                            .success(false)
-                            .build();
+        if (accountOptional.isPresent()) {
+            return RegisterResponse.builder()
+                    .message("Username đã tồn tại")
+                    .success(false)
+                    .build();
         }
 
         User user = new User();
-        try{
+        try {
             user.setUserID(generateUserId());
             user.setName(request.getName());
             user.setEmail(request.getEmail());
@@ -88,14 +89,13 @@ public class AuthService {
             user.setStatus(true);
             userRepository.save(user);
         } catch (Exception e) {
-            return
-                    RegisterResponse.builder()
-                            .message("Không thể tạo user")
-                            .success(false)
-                            .build();
+            return RegisterResponse.builder()
+                    .message("Không thể tạo user")
+                    .success(false)
+                    .build();
         }
 
-        try{
+        try {
             Account account = new Account();
             account.setUsername(request.getUsername());
             account.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -103,27 +103,25 @@ public class AuthService {
             account.setStatus(true);
             accountRepository.save(account);
         } catch (Exception e) {
-            return
-                    RegisterResponse.builder()
-                            .message("Không thể tạo tài khoản")
-                            .success(false)
-                            .build();
+            return RegisterResponse.builder()
+                    .message("Không thể tạo tài khoản")
+                    .success(false)
+                    .build();
         }
         try {
-             return RegisterResponse.builder()
-                     .message("Đăng ký thành công")
-                     .success(true)
-                     .build();
+            return RegisterResponse.builder()
+                    .message("Đăng ký thành công")
+                    .success(true)
+                    .build();
         } catch (Exception e) {
-            return
-            RegisterResponse.builder()
+            return RegisterResponse.builder()
                     .message("Đã xảy ra sự cố")
                     .success(false)
                     .build();
         }
     }
 
-    public void sendSimpleMail(String to, String subject, String text){
+    public void sendSimpleMail(String to, String subject, String text) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(to);
         simpleMailMessage.setSubject(subject);
@@ -131,16 +129,15 @@ public class AuthService {
         javaMailSender.send(simpleMailMessage);
     }
 
-
-    public void forgotPassword(String email){
+    public void forgotPassword(String email) {
         Optional<User> userOp = userRepository.findUserByEmail(email);
-        if (userOp.isEmpty()){
+        if (userOp.isEmpty()) {
             throw new RuntimeException("Email không tồn tại.");
         }
         User user = userOp.get();
 
         Optional<Account> accountOp = accountRepository.findByUser(user);
-        if (accountOp.isEmpty()){
+        if (accountOp.isEmpty()) {
             throw new RuntimeException("Tài khoản cho email không tồn tại.");
         }
         Account account = accountOp.get();
@@ -149,36 +146,37 @@ public class AuthService {
         accountRepository.save(account);
 
         String subject = "Reset mật khẩu thành công";
-        String text = "Mật khẩu mới của bạn là: " + newPassword + "\nVui lòng đăng nhập và thay đổi mật khẩu ngay lập tức.";
+        String text =
+                "Mật khẩu mới của bạn là: " + newPassword + "\nVui lòng đăng nhập và thay đổi mật khẩu ngay lập tức.";
         sendSimpleMail(email, subject, text);
     }
 
     public String generateUserId() {
         Random random = new Random();
         String UserId = "";
-        while (UserId.isEmpty() || userRepository.findById(UserId).isPresent()){
+        while (UserId.isEmpty() || userRepository.findById(UserId).isPresent()) {
             UserId = "KH" + generateRandomString();
         }
         return UserId;
     }
 
-    private String generateRandomPassword(){
+    private String generateRandomPassword() {
         int length = 10;
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i<length;i++){
+        for (int i = 0; i < length; i++) {
             sb.append(chars.charAt(random.nextInt(chars.length())));
         }
         return sb.toString();
     }
 
-    private String generateRandomString(){
+    private String generateRandomString() {
         int length = 7;
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i<length;i++){
+        for (int i = 0; i < length; i++) {
             sb.append(chars.charAt(random.nextInt(chars.length())));
         }
         return sb.toString();

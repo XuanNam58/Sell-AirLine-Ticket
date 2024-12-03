@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import com.example.sell_airline_ticket.entity.Plane;
-import com.example.sell_airline_ticket.entity.Class;
+
 @Entity
 @Data
 @AllArgsConstructor

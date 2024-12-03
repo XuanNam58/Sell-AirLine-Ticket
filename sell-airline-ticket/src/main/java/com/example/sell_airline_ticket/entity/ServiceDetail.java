@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import com.example.sell_airline_ticket.entity.Ticket;
-import com.example.sell_airline_ticket.entity.Service;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -26,6 +25,7 @@ public class ServiceDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ServiceId")
     Service service;
-    @Column(name="Quantity")
+
+    @Column(name = "Quantity")
     Integer quantity;
 }
