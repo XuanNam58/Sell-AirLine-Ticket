@@ -38,7 +38,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((auth) -> auth.requestMatchers("/flight-booking/user/infor.html")
+                .authorizeHttpRequests((auth) -> auth.requestMatchers("/flight-booking/info.html")
                         .authenticated()
                         .anyRequest()
                         .permitAll())

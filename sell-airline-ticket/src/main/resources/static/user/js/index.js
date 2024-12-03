@@ -1,9 +1,16 @@
 window.onload = function() {
     const loginStatusLink = document.querySelector(".login-status");
-    const token = localStorage.getItem("jwtToken");
+        const logoutButton = document.querySelector(".logout");
+        const token = localStorage.getItem("jwtToken");
+
+        logoutButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.removeItem('jwtToken');
+            window.location.href = '/flight-booking/login.html';
+            });
 
     if (token && isTokenValid(token)) {
-        loginStatusLink.href = "/flight-booking/user/info";
+        loginStatusLink.href = "/flight-booking/info.html";
         loginStatusLink.textContent = "Thông tin cá nhân";
 
         fetch("/flight-booking/user/info", {
@@ -24,9 +31,8 @@ window.onload = function() {
     } else {
         loginStatusLink.href = "/flight-booking/login.html";
         loginStatusLink.textContent = "Đăng nhập";
-    }
-
-
+        logoutButton.style.display = "none";
+        }
 };
 
 function isTokenValid(token) {

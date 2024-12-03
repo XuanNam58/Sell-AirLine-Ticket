@@ -3,7 +3,6 @@
 <head th:replace="user/fragments :: meta_css">
 
 </head>
-
 <body>
 
 <!--================Header Area =================-->
@@ -14,7 +13,7 @@
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle f_48">Elements</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
+                <li><a th:href="@{index.html}">Home</a></li>
                 <li class="active">Elements</li>
             </ol>
         </div>
@@ -152,6 +151,42 @@
 </script>
 <script th:inline="javascript">
     window.onload = function checkSeats(){
+        const loginStatusLink = document.querySelector(".login-status");
+        const logoutButton = document.querySelector(".logout");
+        const token = localStorage.getItem("jwtToken");
+
+        logoutButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.removeItem('jwtToken');
+            window.location.href = '/flight-booking/login.html';
+            });
+
+    if (token && isTokenValid(token)) {
+        loginStatusLink.href = "/flight-booking/info.html";
+        loginStatusLink.textContent = "Thông tin cá nhân";
+
+        fetch("/flight-booking/user/info", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwtToken") // Lấy token từ localStorage
+            }
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
+    } else {
+        loginStatusLink.href = "/flight-booking/login.html";
+        loginStatusLink.textContent = "Đăng nhập";
+        logoutButton.style.display = "none";
+        }
+
+
         const booleanList = /*[[${seatsCheck}]]*/ '[]';
         for(let i=0; i<10; i++){
             if(booleanList[i]){
