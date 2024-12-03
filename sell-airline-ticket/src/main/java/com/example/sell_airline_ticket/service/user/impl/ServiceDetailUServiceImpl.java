@@ -6,7 +6,8 @@ import com.example.sell_airline_ticket.entity.ServiceDetail;
 import com.example.sell_airline_ticket.repository.ServiceDetailRepository;
 
 @org.springframework.stereotype.Service
-public class ServiceDetailUServiceImpl implements ServiceDetailUService {
+public class ServiceDetailUServiceImpl
+        implements com.example.sell_airline_ticket.service.user.impl.ServiceDetailUService {
     @Autowired
     private ServiceDetailRepository serviceRepo;
 

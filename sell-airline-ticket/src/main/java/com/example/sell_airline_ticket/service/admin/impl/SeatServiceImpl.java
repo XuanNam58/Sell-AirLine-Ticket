@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.sell_airline_ticket.dto.response.CustomerResponse;
 import com.example.sell_airline_ticket.dto.response.SeatResponse;
-import com.example.sell_airline_ticket.mapper.SeatMapper;
 import com.example.sell_airline_ticket.repository.SeatRepository;
 import com.example.sell_airline_ticket.service.admin.SeatService;
 
@@ -19,7 +18,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SeatServiceImpl implements SeatService {
     SeatRepository seatRepository;
-    SeatMapper seatMapper;
+    //    SeatMapper seatMapper;
 
     @Override
     public List<SeatResponse> getSeats(Integer flightID) {

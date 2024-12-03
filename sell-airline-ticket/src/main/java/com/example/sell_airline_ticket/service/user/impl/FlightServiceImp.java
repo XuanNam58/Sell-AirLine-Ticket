@@ -9,7 +9,7 @@ import com.example.sell_airline_ticket.entity.Flight;
 import com.example.sell_airline_ticket.repository.FlightRepository;
 
 @org.springframework.stereotype.Service
-public class FlightServiceImp implements FlightService {
+public class FlightServiceImp implements com.example.sell_airline_ticket.service.user.impl.FlightService {
     @Autowired
     private FlightRepository flightRepo;
 

@@ -86,6 +86,10 @@
         window.location.reload();
     }
     function showModel2(element){
+        const seatNum = parseInt(element.getAttribute('data-value'));
+<!--        Gửi thông báo qua websocket-->
+        selectSeat(seatNum);
+<!--        Hiển thị modal-->
         const modalContainer = document.getElementById("modal-container")
         modalContainer.classList.add('show-modal')
         seat = parseInt(element.getAttribute('data-value'))
@@ -177,10 +181,10 @@
 
 <script>
     var stompClient = null;
-    var flightId = [[${flight.id}]]; // Lấy flight ID từ Thymeleaf
+    var flightId = [[${flight.flightID}]]; // Lấy flight ID từ Thymeleaf
 
     function connect() {
-        var socket = new SockJS('/ws');
+        var socket = new SockJS('/flight-booking/ws');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function(frame) {
             console.log('Connected: ' + frame);
@@ -205,9 +209,16 @@
     function updateSeatStatus(message) {
         // Nếu ghế đang được người khác chọn
         if (message.status === 'selecting') {
-            // Disable nút chọn ghế và hiển thị thông báo
-            $("#seat-" + message.seatNumber).prop('disabled', true);
-            alert("Ghế số " + message.seatNumber + " đang được người khác chọn!");
+            // Lấy element bằng id là số ghế
+            const seatElement = document.getElementById(message.seatNum);
+            if (seatElement) {
+                seatElement.style.background = '#808080'; // màu xám
+                seatElement.onclick = function(event) {
+                    event.preventDefault();
+                    alert("Ghế số " + message.seatNum + " đang được người khác chọn!");
+                }
+            }
+
         }
     }
 
