@@ -3,7 +3,6 @@
 <head th:replace="user/fragments :: meta_css">
 
 </head>
-
 <body>
 
 <!--================Header Area =================-->
@@ -14,7 +13,7 @@
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle f_48">Elements</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
+                <li><a th:href="@{index.html}">Home</a></li>
                 <li class="active">Elements</li>
             </ol>
         </div>
@@ -73,10 +72,18 @@
     </div>
 </section>
 <script th:inline="javascript">
+    let timeoutId;
     var seat = 0;
     function closeModal2(){
         const modalContainer = document.getElementById('modal-container')
         modalContainer.classList.remove('show-modal')
+        if (timeoutId) {
+            clearTimeout(timeoutId); // Hủy timeout
+            timeoutId = null;
+        } else {
+            console.log("No timeout to clear.");
+        }
+        selectSeat1(seat);
 
     }
     function closeModal3(){
@@ -86,14 +93,19 @@
         window.location.reload();
     }
     function showModel2(element){
-        const seatNum = parseInt(element.getAttribute('data-value'));
-<!--        Gửi thông báo qua websocket-->
-        selectSeat(seatNum);
-<!--        Hiển thị modal-->
-        const modalContainer = document.getElementById("modal-container")
-        modalContainer.classList.add('show-modal')
-        seat = parseInt(element.getAttribute('data-value'))
-        setTimeout(closeModal3, 20000);
+            const seatNum = parseInt(element.getAttribute('data-value'));
+            <!--        Gửi thông báo qua websocket-->
+            selectSeat(seatNum);
+            <!--        Hiển thị modal-->
+            const modalContainer = document.getElementById("modal-container")
+            modalContainer.classList.add('show-modal')
+            seat = parseInt(element.getAttribute('data-value'))
+
+            timeoutId = setTimeout(() => {
+                closeModal3();
+            }, 20000);
+
+
 
 
     }
@@ -132,6 +144,7 @@
             .catch(error => {
                 console.error('Lỗi:', error);
                 alert(error);
+                window.location.reload();
             });
     }
 
@@ -187,7 +200,7 @@
         var socket = new SockJS('/flight-booking/ws');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function(frame) {
-            console.log('Connected: ' + frame);
+            console.log('Connected Luân: ' + frame);
             stompClient.subscribe('/topic/flight/' + flightId, function(response) {
                 var message = JSON.parse(response.body);
                 updateSeatStatus(message);
@@ -195,12 +208,24 @@
         });
     }
 
-    function selectSeat(seatNumber) {
+    function selectSeat(seatNum) {
+
         if (stompClient) {
             var message = {
                 flightId: flightId,
-                seatNumber: seatNumber,
+                seatNum: seatNum,
                 status: 'selecting'
+            };
+            stompClient.send("/app/seat/select", {}, JSON.stringify(message));
+        }
+    }
+    function selectSeat1(seatNum) {
+
+        if (stompClient) {
+            var message = {
+                flightId: flightId,
+                seatNum: seatNum,
+                status: 'unselected'
             };
             stompClient.send("/app/seat/select", {}, JSON.stringify(message));
         }
@@ -210,12 +235,28 @@
         // Nếu ghế đang được người khác chọn
         if (message.status === 'selecting') {
             // Lấy element bằng id là số ghế
-            const seatElement = document.getElementById(message.seatNum);
+            const str = message.seatNum.toString();
+            const seatElement = document.getElementById(str);
+
             if (seatElement) {
-                seatElement.style.background = '#808080'; // màu xám
-                seatElement.onclick = function(event) {
+                seatElement.style.background = '#A9A9A9';
+                seatElement.onclick = function(event){
                     event.preventDefault();
-                    alert("Ghế số " + message.seatNum + " đang được người khác chọn!");
+                    alert("Ghế này đang được người khác đặt!")
+                }
+            }
+
+        }else if (message.status === 'unselected') {
+            // Lấy element bằng id là số ghế
+            const str = message.seatNum.toString();
+            const seatElement = document.getElementById(str);
+
+            if (seatElement) {
+                seatElement.style.background="";
+                seatElement.classList.add("genric-btn", "info", "radius");
+                seatElement.onclick = function(event){
+                    event.preventDefault();
+                    showModel2(seatElement);
                 }
             }
 
@@ -223,9 +264,9 @@
     }
 
     // Kết nối WebSocket khi trang được load
-    $(document).ready(function() {
-        connect();
-    });
+     $(document).ready(function() {
+         connect();
+     });
 </script>
 
 </body>
