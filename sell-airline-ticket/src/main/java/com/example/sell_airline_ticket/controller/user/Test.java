@@ -27,4 +27,10 @@ public class Test {
 
     @GetMapping("/info.html")
     public String info(){ return "user/info";}
+
+    @GetMapping("/gallery.html")
+    public String gallery(){return "user/gallery";}
+
+    @GetMapping("/contact.html")
+    public String contact(){return "user/contact";}
 }
