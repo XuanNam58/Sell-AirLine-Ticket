@@ -126,4 +126,13 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to cancel seat.");
         }
     }
+
+    @PostMapping("/cancel-service/{serviceDetailId}")
+    public ResponseEntity<String> cancelService(@PathVariable int serviceDetailId) {
+
+        com.example.sell_airline_ticket.entity.ServiceDetail serviceDetail = serviceDetailRepository.findById(serviceDetailId).orElseThrow(() -> new RuntimeException("Không tồn tại dịch vụ!"));
+
+        serviceDetailRepository.delete(serviceDetail);
+        return ResponseEntity.ok("Service Detail canceled successfully.");
+    }
 }

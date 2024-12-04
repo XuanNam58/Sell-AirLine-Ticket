@@ -138,6 +138,7 @@
                             <th>Dịch vụ</th>
                             <th>Vé</th>
                             <th>Số lượng</th>
+                            <th>Trạng thái</th>
 
                         </tr>
                         </thead>
@@ -238,7 +239,6 @@
                 .then(services => {
                     const tableBody = document.getElementById('service-table-body');
                     tableBody.innerHTML = ''; // Làm sạch bảng trước khi thêm dữ liệu mới
-
                     services.forEach(serviceDetail => {
                         const row = document.createElement('tr');
 
@@ -246,6 +246,10 @@
                     <td>${serviceDetail.serviceName}</td>
                     <td>${serviceDetail.ticketId}</td>
                     <td>${serviceDetail.quantity}</td>
+                    <td>
+                        <button class="cancel-ser-btn" data-ticket-id="${serviceDetail.serviceDetailId}">
+                            Hủy dịch vụ
+                        </button></td>
 
                 `;
 
@@ -284,6 +288,35 @@
                 }
             }
         });
+
+        document.getElementById('service-table-body').addEventListener('click', function(event) {
+            const serButton = event.target.closest('.cancel-ser-btn');
+            if (serButton) {
+                const serviceDetailId = serButton.getAttribute('data-ticket-id');
+                if (token) {
+                    // Hiển thị xác nhận trước khi hủy vé
+                    if (confirm('Bạn có chắc chắn muốn hủy dịch vụ này không?')) {
+                        fetch(`/flight-booking/cancel-service/${serviceDetailId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + token,
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .then(response => {
+                                if (!response.ok)
+                                    throw new Error('Không thể hủy dịch vụ này');
+                            })
+                            .catch(error => {
+                                console.error('Lỗi khi hủy dịch vụ:', error);
+                            });
+                        alert('Hủy dịch vụ thành công');
+                        location.reload();
+                    }
+                }
+            }
+        });
+
     });
 
 </script>

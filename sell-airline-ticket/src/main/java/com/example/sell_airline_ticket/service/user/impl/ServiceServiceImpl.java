@@ -8,7 +8,7 @@ import com.example.sell_airline_ticket.entity.Service;
 import com.example.sell_airline_ticket.repository.ServiceRepository;
 
 @org.springframework.stereotype.Service
-public class ServiceServiceImpl implements ServiceService {
+public class ServiceServiceImpl implements com.example.sell_airline_ticket.service.user.impl.ServiceService {
     @Autowired
     private ServiceRepository serviceRepo;
 
