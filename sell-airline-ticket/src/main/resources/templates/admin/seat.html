@@ -70,7 +70,7 @@
                                         onclick="fetchCustomerInfo(this)"
                                         data-toggle="modal"
                                         data-target="#customerinfomodal"
-                                        th:text="${seat.seatNum}"  th:class="${seat.isBooked} ? 'btn btn-secondary' : 'btn btn-primary'"
+                                        th:text="${seat.seatNum}"  th:class="${seat.isBooked} ? 'btn btn-success' : 'btn btn-primary'"
                                         style="min-width: 43px">
 <!--                                    <input type="checkbox" data-toggle="modal" data-target="#customerinfomodal" />-->
                                 </button>
@@ -128,7 +128,87 @@
     <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
     <script th:src="@{/admin/assets/js/main.js}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.0/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <script>
+        var stompClient = null;
+        var flightId = [[${flightID}]];
+        function connect() {
+            var socket = new SockJS('/flight-booking/ws');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function() {
+                stompClient.subscribe('/topic/flight/' + flightId, function(response) {
+                    var message = JSON.parse(response.body);
+                    updateSeatStatus(message);
+                });
+                stompClient.subscribe('/topic/cancel-flight/' + flightId, function(response) {
+                    var message = JSON.parse(response.body);
+                    updateSeatStatusCancel(message);
+            });
+            });
+        }
 
+        function updateSeatStatus(message) {
+            if (message.status === 'selecting') {
+                const str = message.seatNum.toString();
+                const seatButton = document.querySelector(`button[data-seatnum="${str}"]`);
+
+                if (seatButton) {
+                    seatButton.classList.remove('btn-primary');
+                    seatButton.classList.add('btn-secondary');
+                    seatButton.onclick = function(event) {
+                        event.preventDefault();
+                    }
+                }
+            }
+
+            else if (message.status === 'unselected') {
+                const str = message.seatNum.toString();
+                const seatButton = document.querySelector(`button[data-seatnum="${str}"]`);
+
+                if (seatButton) {
+                    seatButton.classList.remove('btn-secondary');
+                    seatButton.classList.add("btn-primary");
+                    seatButton.onclick = function(event) {
+                        event.preventDefault();
+                    }
+                }
+            }
+
+            else if (message.status === 'booked') {
+                const str = message.seatNum.toString();
+                const seatButton = document.querySelector(`button[data-seatnum="${str}"]`);
+
+                if (seatButton) {
+                    seatButton.classList.remove('btn-secondary');
+                    seatButton.classList.add("btn-success");
+                    seatButton.onclick = function(event) {
+                        event.preventDefault();
+                        fetchCustomerInfo(seatButton);
+                    };
+                }
+            }
+        }
+
+        function updateSeatStatusCancel(message) {
+            const str = message.seatNum.toString();
+            const seatButton = document.querySelector(`button[data-seatnum="${str}"]`);
+
+            if (seatButton) {
+                 seatButton.classList.remove('btn-success');
+                 seatButton.classList.add("btn-primary");
+                 seatButton.onclick = function(event) {
+                     event.preventDefault();
+                     fetchCustomerInfo(seatButton);
+                 };
+            }
+        }
+
+        // Kết nối WebSocket khi trang được load
+        $(document).ready(function() {
+            connect();
+        });
+    </script>
 </body>
 
 </html>
