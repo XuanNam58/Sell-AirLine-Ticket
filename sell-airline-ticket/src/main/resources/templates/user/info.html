@@ -68,6 +68,10 @@
                     <a class="nav-link" id="flights-tab" data-toggle="tab" href="#flights" role="tab"
                        aria-controls="flights" aria-selected="false">Chuyến Bay Đã Đặt</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="service-tab" data-toggle="tab" href="#services" role="tab"
+                       aria-controls="service" aria-selected="false">Danh sách dịch vụ đã đặt</a>
+                </li>
             </ul>
             <div class="tab-content mt-3">
 
@@ -112,6 +116,33 @@
                         </tr>
                         </thead>
                         <tbody id="flights-table-body">
+                        <!-- Dữ liệu sẽ được điền vào đây thông qua JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Dịch vụ đã đặt -->
+                <div class="tab-pane fade show" id="services" role="tabpanel" aria-labelledby="service-tab">
+                    <div class="input-group-icon mt-10" style="margin-bottom: 20px; width: 30%">
+                        <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
+                        <div class="form-select" id="default-select">
+                            <select id="combobox-ticket" >
+                                <option value="" disabled selected>Chọn vé của bạn...</option>
+                                <option th:each="ticket :${tickets}" th:value="${ticket.ticketID}" th:text="'Chuyến '+${ticket.flight.flightID}+' đến ' + ${ticket.flight.destination}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Dịch vụ</th>
+                            <th>Vé</th>
+                            <th>Số lượng</th>
+                            <th>Trạng thái</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="service-table-body">
                         <!-- Dữ liệu sẽ được điền vào đây thông qua JavaScript -->
                         </tbody>
                     </table>
@@ -192,6 +223,44 @@
                 })
         }
 
+        if (token) {
+            fetch('/flight-booking/user/services', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Không thể lấy thông tin dịch vụ');
+                    }
+                    return response.json();
+                })
+                .then(services => {
+                    const tableBody = document.getElementById('service-table-body');
+                    tableBody.innerHTML = ''; // Làm sạch bảng trước khi thêm dữ liệu mới
+                    services.forEach(serviceDetail => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                    <td>${serviceDetail.serviceName}</td>
+                    <td>${serviceDetail.ticketId}</td>
+                    <td>${serviceDetail.quantity}</td>
+                    <td>
+                        <button class="cancel-ser-btn" data-ticket-id="${serviceDetail.serviceDetailId}">
+                            Hủy dịch vụ
+                        </button></td>
+
+                `;
+
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tải chuyến bay:', error);
+                })
+        }
+
         document.getElementById('flights-table-body').addEventListener('click', function(event) {
             const cancelButton = event.target.closest('.cancel-btn');
             if (cancelButton) {
@@ -219,6 +288,35 @@
                 }
             }
         });
+
+        document.getElementById('service-table-body').addEventListener('click', function(event) {
+            const serButton = event.target.closest('.cancel-ser-btn');
+            if (serButton) {
+                const serviceDetailId = serButton.getAttribute('data-ticket-id');
+                if (token) {
+                    // Hiển thị xác nhận trước khi hủy vé
+                    if (confirm('Bạn có chắc chắn muốn hủy dịch vụ này không?')) {
+                        fetch(`/flight-booking/cancel-service/${serviceDetailId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + token,
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .then(response => {
+                                if (!response.ok)
+                                    throw new Error('Không thể hủy dịch vụ này');
+                            })
+                            .catch(error => {
+                                console.error('Lỗi khi hủy dịch vụ:', error);
+                            });
+                        alert('Hủy dịch vụ thành công');
+                        location.reload();
+                    }
+                }
+            }
+        });
+
     });
 
 </script>

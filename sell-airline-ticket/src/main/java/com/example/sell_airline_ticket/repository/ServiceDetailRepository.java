@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.example.sell_airline_ticket.entity.ServiceDetail;
 
+import java.util.List;
+
 @Repository
 public interface ServiceDetailRepository extends JpaRepository<ServiceDetail, Integer> {
     @Modifying
@@ -26,4 +28,7 @@ public interface ServiceDetailRepository extends JpaRepository<ServiceDetail, In
     @Modifying
     @Query("DELETE FROM ServiceDetail sd WHERE sd.ticket.ticketID = :ticketId")
     void deleteByTicketId(@Param("ticketId") int ticketId);
+
+    @Query("FROM ServiceDetail sd WHERE sd.ticket.user.userID = :userId")
+    List<ServiceDetail> getServiceDetailByCus(@Param("userId") String userId);
 }

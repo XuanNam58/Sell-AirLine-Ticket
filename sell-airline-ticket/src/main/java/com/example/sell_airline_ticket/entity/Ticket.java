@@ -29,12 +29,12 @@ public class Ticket {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserId")
-    User user;
+    com.example.sell_airline_ticket.entity.User user;
 
     @Column(name = "Seat_Num")
     Integer seatNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Flight_Id")
-    Flight flight;
+    com.example.sell_airline_ticket.entity.Flight flight;
 }

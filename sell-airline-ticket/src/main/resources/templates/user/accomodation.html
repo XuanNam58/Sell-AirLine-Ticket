@@ -83,7 +83,8 @@
                 <div class="row accomodation_two"  >
 
                     <div class="col-lg-3 col-sm-6" th:each="service, index : ${listService}">
-                        <div class="accomodation_item text-center">
+                        <div class="accomodation_item text-center" style="display: grid;
+    place-items: center;">
                             <div class="hotel_img">
                                 <img th:src="@{'/user/image/Service/' + ${service.image}}" alt="">
                                 <a onclick="serviceOrder(this)" th:data-value="${service.serviceId}" class="btn theme_btn button_hover">Đặt</a>
@@ -102,7 +103,7 @@
                                     <h1 class="modal__title">Đặt dịch vụ thành công!</h1>
                                     <p class="modal__description">Ptit Airline xin cảm ơn</p>
 
-                                    <button class="modal__button modal__button-width" onclick="">
+                                    <button class="modal__button modal__button-width" onclick="window.location.href='/flight-booking/info.html'">
                                         Xem danh sách dịch vụ
                                     </button>
 

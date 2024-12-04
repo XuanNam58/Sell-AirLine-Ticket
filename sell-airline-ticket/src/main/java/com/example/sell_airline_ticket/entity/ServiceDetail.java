@@ -20,11 +20,11 @@ public class ServiceDetail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TicketId")
-    Ticket ticket;
+    com.example.sell_airline_ticket.entity.Ticket ticket;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ServiceId")
-    Service service;
+    com.example.sell_airline_ticket.entity.Service service;
 
     @Column(name = "Quantity")
     Integer quantity;
