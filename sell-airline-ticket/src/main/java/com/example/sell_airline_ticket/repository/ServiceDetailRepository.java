@@ -1,5 +1,6 @@
 package com.example.sell_airline_ticket.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,9 @@ public interface ServiceDetailRepository extends JpaRepository<ServiceDetail, In
 
     @Query("FROM ServiceDetail sd WHERE sd.ticket.ticketID = :ticketId AND sd.service.serviceId = :serviceId")
     ServiceDetail getServiceDetailByTS(@Param("ticketId") int ticketId, @Param("serviceId") String serviceId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM ServiceDetail sd WHERE sd.ticket.ticketID = :ticketId")
+    void deleteByTicketId(@Param("ticketId") int ticketId);
 }
