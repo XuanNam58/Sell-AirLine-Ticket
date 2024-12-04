@@ -60,7 +60,6 @@ public class FlightControllerUser {
 
         List<Boolean> booleanList = new ArrayList<>(Collections.nCopies(10, false));
         List<Ticket> tickets = ticketService.searchTickets(flightId);
-
         for (Ticket ticket : tickets) {
             int seatNum = ticket.getSeatNum();
             if (seatNum >= 1 && seatNum <= 10) {

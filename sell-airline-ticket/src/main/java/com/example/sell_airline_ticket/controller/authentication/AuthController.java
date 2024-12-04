@@ -3,6 +3,7 @@ package com.example.sell_airline_ticket.controller.authentication;
 import com.example.sell_airline_ticket.dto.request.CancelSeatRequest;
 import com.example.sell_airline_ticket.dto.response.FlightTicketResponse;
 import com.example.sell_airline_ticket.dto.response.SeatMessageResponse;
+import com. example. sell_airline_ticket. dto. response. ServiceResponse;
 import com.example.sell_airline_ticket.entity.Flight;
 import com.example.sell_airline_ticket.entity.Ticket;
 import com.example.sell_airline_ticket.entity.User;
@@ -11,6 +12,8 @@ import com.example.sell_airline_ticket.repository.ServiceDetailRepository;
 import com.example.sell_airline_ticket.repository.TicketRepository;
 import com.example.sell_airline_ticket.service.user.TicketService;
 import com.example.sell_airline_ticket.service.user.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.sell_airline_ticket.dto.request.AuthenticationRequest;
@@ -47,6 +51,8 @@ public class AuthController {
     private TicketRepository ticketRepository;
     @Autowired
     private ServiceDetailRepository serviceDetailRepository;
+    @Autowired
+    private com.example.sell_airline_ticket.service.user.impl.ServiceDetailUService serviceDetailSer;
 
 
     @PostMapping("/login")
@@ -83,6 +89,17 @@ public class AuthController {
         if (username != null) {
             List<FlightTicketResponse> flightTicketResponsesList = userService.getFlightByUsername(username);
             return ResponseEntity.ok(flightTicketResponsesList);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token không tồn tại");
+    }
+
+    @GetMapping("/user/services")
+    public ResponseEntity<?> getUserServices(@RequestHeader("Authorization") String authorizationHeader) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByUsername(username);
+        if (username != null) {
+            List<ServiceResponse> serviceResponsesList = userService.getServiceByTK(user.getUserID());
+            return ResponseEntity.ok(serviceResponsesList);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token không tồn tại");
     }

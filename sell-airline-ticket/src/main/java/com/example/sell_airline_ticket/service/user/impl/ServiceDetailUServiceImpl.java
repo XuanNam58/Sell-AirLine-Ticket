@@ -7,6 +7,8 @@ import com.example.sell_airline_ticket.repository.ServiceDetailRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 @org.springframework.stereotype.Service
 public class ServiceDetailUServiceImpl
         implements com.example.sell_airline_ticket.service.user.impl.ServiceDetailUService {
@@ -16,6 +18,10 @@ public class ServiceDetailUServiceImpl
     @Override
     public ServiceDetail getServiceDetailByTS(int ticketID, String serviceId) {
         return serviceRepo.getServiceDetailByTS(ticketID, serviceId);
+    }
+    @Override
+    public List<ServiceDetail> getAllServiceDetail(){
+        return serviceRepo.findAll();
     }
 
     @Override

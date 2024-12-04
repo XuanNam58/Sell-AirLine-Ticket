@@ -30,6 +30,8 @@ public class UserService {
     private TicketRepository ticketRepository;
     @Autowired
     private FlightRepository flightRepository;
+    @Autowired
+    private com.example.sell_airline_ticket.repository.ServiceDetailRepository serviceDetailRepository;
 
     //    public User createUser(UserCreationRequest request){
     //        User user = new User();
@@ -67,5 +69,19 @@ public class UserService {
             return flightTicketResponses;
         }
         return Collections.emptyList();
+    }
+
+    public List<com.example.sell_airline_ticket.dto.response.ServiceResponse> getServiceByTK(String userId){
+
+
+            List<com.example.sell_airline_ticket.entity.ServiceDetail> serviceDetails = serviceDetailRepository.getServiceDetailByCus(userId);
+
+            List<com.example.sell_airline_ticket.dto.response.ServiceResponse> serviceResponses = serviceDetails.stream().map(serviceDetail -> {
+                com.example.sell_airline_ticket.entity.Service service = serviceDetail.getService();
+                Ticket ticket = serviceDetail.getTicket();
+                return new com.example.sell_airline_ticket.dto.response.ServiceResponse(ticket, service, serviceDetail);
+            }).toList();
+            return serviceResponses;
+
     }
 }
