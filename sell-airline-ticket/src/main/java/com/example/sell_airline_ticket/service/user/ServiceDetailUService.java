@@ -4,4 +4,6 @@ import com.example.sell_airline_ticket.entity.ServiceDetail;
 
 public interface ServiceDetailUService {
     ServiceDetail getServiceDetailByTS(int ticketID, String serviceId);
+
+    void deleteByTicketId(int ticketId);
 }
