@@ -142,6 +142,7 @@
             })
             .then(result => {
                 alert("Đặt vé thành công!")
+                selectSeat2(seat);
                 window.location.reload();
             })
             .catch(error => {
@@ -270,6 +271,18 @@
                 flightId: flightId,
                 seatNum: seatNum,
                 status: 'unselected'
+            };
+            stompClient.send("/app/seat/select", {}, JSON.stringify(message));
+        }
+    }
+
+    function selectSeat2(seatNum) {
+
+        if (stompClient) {
+            var message = {
+                flightId: flightId,
+                seatNum: seatNum,
+                status: 'booked'
             };
             stompClient.send("/app/seat/select", {}, JSON.stringify(message));
         }

@@ -13,7 +13,7 @@ public interface ServiceDetailRepository extends JpaRepository<ServiceDetail, In
     @Modifying
     @Query(
             value =
-                    "DELETE FROM ServiceDetail WHERE ticketId = (SELECT t.Ticket_Id FROM Ticket t WHERE t.Flight_Id = :flightID AND t.Seat_Num = :seatNum)",
+                    "DELETE FROM Service_Detail WHERE Ticket_Id = (SELECT t.Ticket_Id FROM Ticket t WHERE t.Flight_Id = :flightID AND t.Seat_Num = :seatNum)",
             nativeQuery = true)
     void deleteServiceDetailByFlightIDAndSeatNum(
             @Param("flightID") Integer flightID, @Param("seatNum") Integer seatNum);
