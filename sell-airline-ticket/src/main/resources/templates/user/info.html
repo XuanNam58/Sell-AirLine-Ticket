@@ -9,20 +9,28 @@
         body {
             background-color: #f8f9fa;
         }
+
         .container-info {
             margin: 50px !important;
         }
+
         .card-header {
             font-size: 1.25rem;
             font-weight: 600;
         }
+
         .card-body-info {
             margin: 50px !important;
             padding: 20px;
             overflow: auto;
         }
+
         .tab-content .table th, .tab-content .table td {
             vertical-align: middle;
+        }
+
+        .cancel-btn {
+            color: #f52828;
         }
     </style>
 </head>
@@ -38,7 +46,7 @@
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle">Thông tin khách hàng</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Trang chủ</a></li>
+                <li><a th:href="@{/index.html}">Trang chủ</a></li>
                 <li class="active">Thông tin</li>
             </ol>
         </div>
@@ -53,10 +61,12 @@
         <div class="card-body-info">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Thông Tin Cá Nhân</a>
+                    <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab"
+                       aria-controls="info" aria-selected="true">Thông Tin Cá Nhân</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="flights-tab" data-toggle="tab" href="#flights" role="tab" aria-controls="flights" aria-selected="false">Chuyến Bay Đã Đặt</a>
+                    <a class="nav-link" id="flights-tab" data-toggle="tab" href="#flights" role="tab"
+                       aria-controls="flights" aria-selected="false">Chuyến Bay Đã Đặt</a>
                 </li>
             </ul>
             <div class="tab-content mt-3">
@@ -66,77 +76,152 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>Họ và Tên</th>
-                            <td>Nguyễn Văn A</td>
+                            <td id="hoVaTen">Đang tải...</td>
                         </tr>
                         <tr>
                             <th>Số CMND/CCCD/Hộ chiếu</th>
-                            <td>0123456789</td>
+                            <td id="soCMND">Đang tải...</td>
                         </tr>
                         <tr>
                             <th>Email</th>
-                            <td>email@example.com</td>
+                            <td id="email">Đang tải...</td>
                         </tr>
                         <tr>
                             <th>Số Điện Thoại</th>
-                            <td>0123 456 789</td>
+                            <td id="soDienThoai">Đang tải...</td>
                         </tr>
                         <tr>
-                            <th>Địa Chỉ</th>
-                            <td>123 Đường ABC, Phường XYZ, Quận 1, TP.HCM</td>
+                            <th>Số tài khoản</th>
+                            <td id="credit">Đang tải...</td>
                         </tr>
                     </table>
                 </div>
 
                 <!-- Chuyến Bay Đã Đặt -->
-                <div class="tab-pane fade" id="flights" role="tabpanel" aria-labelledby="flights-tab">
+                <div class="tab-pane fade show" id="flights" role="tabpanel" aria-labelledby="flights-tab">
                     <table class="table table-striped table-bordered">
                         <thead class="thead-light">
                         <tr>
                             <th>Số Hiệu Chuyến Bay</th>
-                            <th>Ngày Bay</th>
-                            <th>Thời Gian Khởi Hành</th>
-                            <th>Thời Gian Hạ Cánh</th>
-                            <th>Điểm Đi - Điểm Đến</th>
-                            <th>Hạng Vé</th>
+                            <th>Điểm Đi</th>
+                            <th>Điểm Đến</th>
+                            <th>Ngày Giờ Khởi Hành</th>
+                            <th>Ngày Giờ Hạ Cánh</th>
+                            <th>Số Ghế</th>
                             <th>Tình Trạng</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>VN123</td>
-                            <td>2024-11-15</td>
-                            <td>08:00 AM</td>
-                            <td>10:00 AM</td>
-                            <td>Hà Nội - TP.HCM</td>
-                            <td>Thương Gia</td>
-                            <td>Đã Thanh Toán</td>
-                        </tr>
-                        <tr>
-                            <td>VN456</td>
-                            <td>2024-12-01</td>
-                            <td>02:00 PM</td>
-                            <td>04:30 PM</td>
-                            <td>Đà Nẵng - Cần Thơ</td>
-                            <td>Phổ Thông</td>
-                            <td>Chưa Thanh Toán</td>
-                        </tr>
-                        <tr>
-                            <td>VN789</td>
-                            <td>2025-01-20</td>
-                            <td>06:30 AM</td>
-                            <td>08:45 AM</td>
-                            <td>TP.HCM - Nha Trang</td>
-                            <td>Thương Gia</td>
-                            <td>Đã Hủy</td>
-                        </tr>
+                        <tbody id="flights-table-body">
+                        <!-- Dữ liệu sẽ được điền vào đây thông qua JavaScript -->
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 <!--================ End Thông Tin Khách Hàng =================-->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const token = localStorage.getItem('jwtToken');
+
+        if (token) {
+            fetch('/flight-booking/user/info', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('hoVaTen').textContent = data.name;
+                    document.getElementById('soCMND').textContent = data.citizenID;
+                    document.getElementById('email').textContent = data.email;
+                    document.getElementById('soDienThoai').textContent = data.phoneNum;
+                    document.getElementById('credit').textContent = data.creditNum;
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    document.getElementById('hoVaTen').textContent = 'Lỗi khi lấy thông tin';
+                });
+        } else {
+            document.getElementById('hoVaTen').textContent = 'Không có token';
+        }
+
+
+        if (token) {
+            fetch('/flight-booking/user/flight', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Không thể lấy thông tin chuyến bay');
+                    }
+                    return response.json();
+                })
+                .then(flights => {
+                    const tableBody = document.getElementById('flights-table-body');
+                    tableBody.innerHTML = ''; // Làm sạch bảng trước khi thêm dữ liệu mới
+
+                    flights.forEach(flightTicket => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                    <td>${flightTicket.flightID}</td>
+                    <td>${flightTicket.departure}</td>
+                    <td>${flightTicket.destination}</td>
+                    <td>${new Date(flightTicket.depTime).toLocaleString()}</td>
+                    <td>${new Date(flightTicket.arrTime).toLocaleString()}</td>
+                    <td>${flightTicket.seatNum}</td>
+                    <td>
+                        <button class="cancel-btn" data-ticket-id="${flightTicket.ticketId}">
+                            ${flightTicket.status ? 'Hủy Vé' : 'Đã Hủy'}
+                        </button></td>
+                `;
+
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tải chuyến bay:', error);
+                })
+        }
+
+        document.getElementById('flights-table-body').addEventListener('click', function(event) {
+            const cancelButton = event.target.closest('.cancel-btn');
+            if (cancelButton) {
+                const ticketId = cancelButton.getAttribute('data-ticket-id');
+                if (token) {
+                    // Hiển thị xác nhận trước khi hủy vé
+                    if (confirm('Bạn có chắc chắn muốn hủy vé này không?')) {
+                        fetch(`/flight-booking/cancel-ticket/${ticketId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + token,
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .then(response => {
+                                if (!response.ok)
+                                    throw new Error('Không thể hủy vé');
+                            })
+                            .catch(error => {
+                                console.error('Lỗi khi hủy vé:', error);
+                            });
+                        alert('Hủy vé thành công');
+                        location.reload();
+                    }
+                }
+            }
+        });
+    });
+
+</script>
 
 <!--================ start footer Area  =================-->
 <footer th:replace="user/fragments :: footer"></footer>

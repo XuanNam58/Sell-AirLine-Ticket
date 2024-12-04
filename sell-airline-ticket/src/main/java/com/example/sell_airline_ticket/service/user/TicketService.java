@@ -9,4 +9,6 @@ public interface TicketService {
     List<Ticket> getAllTicketOfCus(String userID);
 
     List<Ticket> searchTickets(int flightId);
+
+    boolean cancelSeat(int ticketId);
 }
