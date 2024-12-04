@@ -7,6 +7,7 @@ import com.example.sell_airline_ticket.entity.Flight;
 import com.example.sell_airline_ticket.entity.Ticket;
 import com.example.sell_airline_ticket.entity.User;
 import com.example.sell_airline_ticket.repository.FlightRepository;
+import com.example.sell_airline_ticket.repository.ServiceDetailRepository;
 import com.example.sell_airline_ticket.repository.TicketRepository;
 import com.example.sell_airline_ticket.service.user.TicketService;
 import com.example.sell_airline_ticket.service.user.UserService;
@@ -44,6 +45,8 @@ public class AuthController {
     private TicketService ticketService;
     @Autowired
     private TicketRepository ticketRepository;
+    @Autowired
+    private ServiceDetailRepository serviceDetailRepository;
 
 
     @PostMapping("/login")
@@ -96,9 +99,10 @@ public class AuthController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ticket not found.");
         }
-        boolean success = ticketService.cancelSeat(ticketId);
-
-        if (success) {
+        System.out.println(ticketId);
+        serviceDetailRepository.deleteByTicketId(ticketId);
+        boolean cancelSeat = ticketService.cancelSeat(ticketId);
+        if (cancelSeat) {
             String topic = "/topic/cancel-flight/" + message.getFlightId();
             messagingTemplate.convertAndSend(topic, message);
             return ResponseEntity.ok("Seat canceled successfully.");
