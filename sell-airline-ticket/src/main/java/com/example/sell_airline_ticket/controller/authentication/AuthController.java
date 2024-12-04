@@ -116,7 +116,6 @@ public class AuthController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ticket not found.");
         }
-        System.out.println(ticketId);
         serviceDetailRepository.deleteByTicketId(ticketId);
         boolean cancelSeat = ticketService.cancelSeat(ticketId);
         if (cancelSeat) {
