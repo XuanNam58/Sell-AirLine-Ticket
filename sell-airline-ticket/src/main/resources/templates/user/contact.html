@@ -13,7 +13,7 @@
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle">Liên hệ với chúng tôi</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Trang chủ</a></li>
+                <li><a th:href="@{index.html}">Trang chủ</a></li>
                 <li class="active">Liên hệ</li>
             </ol>
         <p style="color: white; font-size: 20px;">Hãy liên hệ để đặt vé máy bay nhanh chóng và tiện lợi.</p>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                <form class="row contact_form" action="#" method="post" id="contactForm" novalidate="novalidate">
                     <div class="col-md-6">
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên của bạn">
@@ -115,34 +115,34 @@
 <!--================ End footer Area  =================-->
 
 <!--================Contact Success and Error message Area =================-->
-<div id="success" class="modal modal-message fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i class="fa fa-close"></i>
-                </button>
-                <h2>Cảm ơn bạn</h2>
-                <p>Tin nhắn của bạn đã được gửi thành công.</p>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div id="success" class="modal modal-message fade" role="dialog">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <i class="fa fa-close"></i>-->
+<!--                </button>-->
+<!--                <h2>Cảm ơn bạn</h2>-->
+<!--                <p>Tin nhắn của bạn đã được gửi thành công.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!-- Modal error -->
-<div id="error" class="modal modal-message fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i class="fa fa-close"></i>
-                </button>
-                <h2>Xin lỗi!</h2>
-                <p>Đã xảy ra lỗi. Vui lòng thử lại sau.</p>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div id="error" class="modal modal-message fade" role="dialog">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <i class="fa fa-close"></i>-->
+<!--                </button>-->
+<!--                <h2>Xin lỗi!</h2>-->
+<!--                <p>Đã xảy ra lỗi. Vui lòng thử lại sau.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <!--================End Contact Success and Error message Area =================-->
 
 
@@ -161,6 +161,7 @@
 <script th:src="@{/user/vendors/isotope/isotope.min.js}"></script>
 <script th:src="@{/user/vendors/lightbox/simpleLightbox.min.js}"></script>
 <script th:src="@{/user/js/custom.js}"></script>
+<script th:src="@{user/js/index.js}"></script>
 
 </body>
 </html>
