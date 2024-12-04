@@ -83,7 +83,8 @@
                 <div class="row accomodation_two"  >
 
                     <div class="col-lg-3 col-sm-6" th:each="service, index : ${listService}">
-                        <div class="accomodation_item text-center">
+                        <div class="accomodation_item text-center" style="display: grid;
+    place-items: center;">
                             <div class="hotel_img">
                                 <img th:src="@{'/user/image/Service/' + ${service.image}}" alt="">
                                 <a onclick="serviceOrder(this)" th:data-value="${service.serviceId}" class="btn theme_btn button_hover">Đặt</a>

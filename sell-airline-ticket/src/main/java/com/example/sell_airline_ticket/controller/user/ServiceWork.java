@@ -2,8 +2,11 @@ package com.example.sell_airline_ticket.controller.user;
 
 import java.util.Map;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.sell_airline_ticket.entity.Service;
@@ -15,7 +18,6 @@ import com.example.sell_airline_ticket.repository.TicketRepository;
 import com.example.sell_airline_ticket.service.user.impl.ServiceDetailUService;
 
 @RestController
-@RequestMapping("/serviceOrder")
 public class ServiceWork {
     @Autowired
     ServiceRepository serviceRepository;
@@ -29,8 +31,8 @@ public class ServiceWork {
     @Autowired
     ServiceDetailRepository serviceDetailRepository;
 
-    @PostMapping
-    public ResponseEntity<?> serviceOrder(@RequestBody Map<String, Object> data) {
+    @PostMapping("/serviceOrder")
+    public ResponseEntity<?> serviceOrder(@RequestBody Map<String, Object> data,@RequestHeader("Authorization") String authorizationHeader) {
         String serviceId = (String) data.get("serviceId");
         int ticketId = 0;
         try {
@@ -56,6 +58,7 @@ public class ServiceWork {
             System.out.println(e.getMessage());
         }
 
-        return ResponseEntity.ok(Map.of("message", "Giỏ hàng đã được xóa"));
+        return ResponseEntity.ok(Map.of("message", "đặt thành công!"));
     }
+
 }
