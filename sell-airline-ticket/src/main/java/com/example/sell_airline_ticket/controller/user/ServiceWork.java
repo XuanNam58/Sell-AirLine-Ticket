@@ -32,7 +32,7 @@ public class ServiceWork {
     ServiceDetailRepository serviceDetailRepository;
 
     @PostMapping("/serviceOrder")
-    public ResponseEntity<?> serviceOrder(@RequestBody Map<String, Object> data,@RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<?> serviceOrder(@RequestBody Map<String, Object> data) {
         String serviceId = (String) data.get("serviceId");
         int ticketId = 0;
         try {
