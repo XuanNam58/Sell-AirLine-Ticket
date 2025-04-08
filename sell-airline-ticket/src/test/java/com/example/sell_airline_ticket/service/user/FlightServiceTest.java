@@ -12,7 +12,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -26,11 +33,11 @@ public class FlightServiceTest {
     @Test
     void getAllFlight_ShouldReturnAllFlights() {
         // Arrange
-        Flight flight1 = new Flight(1, "VN123",new Plane("test01", "test01"), "Hanoi", "Ho Chi Minh", "");
-        Flight flight2 = new Flight(2, "VN456", new Plane("test01", "test01"),"Da Nang", "Nha Trang");
+        Flight flight1 = new Flight(1,new Plane("test01", "test01"), "Hanoi", "Ho Chi Minh", LocalDateTime.now(), LocalDateTime.now().plusHours(2), 200F);
+        Flight flight2 = new Flight(2,  new Plane("test02", "test02"),"Da Nang", "Nha Trang",  LocalDateTime.now(), LocalDateTime.now().plusHours(2), 200F);
         List<Flight> expectedFlights = Arrays.asList(flight1, flight2);
 
-        when(flightRepo.findAll()).thenReturn(expectedFlights);
+        when(flightRepository.findAll()).thenReturn(expectedFlights);
 
         // Act
         List<Flight> actualFlights = flightService.getAllFlight();
@@ -39,13 +46,13 @@ public class FlightServiceTest {
         assertNotNull(actualFlights);
         assertEquals(2, actualFlights.size());
         assertEquals(expectedFlights, actualFlights);
-        verify(flightRepo, times(1)).findAll();
+        verify(flightRepository, times(1)).findAll();
     }
 
     @Test
     void getAllFlight_WhenNoFlightsExist_ShouldReturnEmptyList() {
         // Arrange
-        when(flightRepo.findAll()).thenReturn(List.of());
+        when(flightRepository.findAll()).thenReturn(List.of());
 
         // Act
         List<Flight> actualFlights = flightService.getAllFlight();
@@ -53,19 +60,46 @@ public class FlightServiceTest {
         // Assert
         assertNotNull(actualFlights);
         assertTrue(actualFlights.isEmpty());
-        verify(flightRepo, times(1)).findAll();
+        verify(flightRepository, times(1)).findAll();
     }
 
     @Test
     void getAllFlight_ShouldCallRepositoryExactlyOnce() {
         // Arrange
-        when(flightRepo.findAll()).thenReturn(List.of());
+        when(flightRepository.findAll()).thenReturn(List.of());
 
         // Act
         flightService.getAllFlight();
 
         // Assert
-        verify(flightRepo, times(1)).findAll();
-        verifyNoMoreInteractions(flightRepo);
+        verify(flightRepository, times(1)).findAll();
+        verifyNoMoreInteractions(flightRepository);
+    }
+
+    /*Search flights*/
+    @Test
+    void searchFlights_WithPartialParameters_ShouldWork() {
+        // Test with some parameters null
+        Flight flight = new Flight(5, new Plane(), "Hanoi", "Da Lat",
+                LocalDateTime.now(),
+                LocalDateTime.now().plusHours(1), 180.0f);
+
+        when(flightRepository.searchFlights("Hanoi", null, null, null))
+                .thenReturn(Collections.singletonList(flight));
+
+        List<Flight> result = flightService.searchFlights("Hanoi", null, null, null);
+
+        assertEquals(1, result.size());
+        assertEquals("Da Lat", result.get(0).getDestination());
+    }
+
+    @Test
+    void searchFlights_ShouldHandleRepositoryExceptions() {
+        when(flightRepository.searchFlights(anyString(), anyString(), any(LocalDate.class), any(LocalDate.class)))
+                .thenThrow(new RuntimeException("Database error"));
+
+        assertThrows(RuntimeException.class, () -> {
+            flightService.searchFlights("Hanoi", "HCM", LocalDate.now(), null);
+        });
     }
 }
