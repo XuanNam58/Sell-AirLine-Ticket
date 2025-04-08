@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.example.sell_airline_ticket.service.user.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ import com.example.sell_airline_ticket.util.StringUtils;
 @Controller
 public class BookingController {
     @Autowired
-    private com.example.sell_airline_ticket.service.user.impl.FlightService flightSer;
+    private FlightService flightSer;
 
     @GetMapping("/search.html")
     public String Search(

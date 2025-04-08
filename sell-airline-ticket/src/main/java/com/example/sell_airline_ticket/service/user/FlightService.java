@@ -1,4 +1,4 @@
-package com.example.sell_airline_ticket.service.user.impl;
+package com.example.sell_airline_ticket.service.user;
 
 import java.time.LocalDate;
 import java.util.List;
