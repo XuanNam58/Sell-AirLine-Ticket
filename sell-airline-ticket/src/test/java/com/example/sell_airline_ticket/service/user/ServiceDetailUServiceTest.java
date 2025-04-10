@@ -1,7 +1,8 @@
-package com.example.sell_airline_ticket.service.user.impl;
+package com.example.sell_airline_ticket.service.user;
 
 import com.example.sell_airline_ticket.entity.ServiceDetail;
 import com.example.sell_airline_ticket.repository.ServiceDetailRepository;
+import com.example.sell_airline_ticket.service.user.impl.ServiceDetailUServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -11,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class ServiceDetailUServiceImplTest {
+class ServiceDetailUServiceTest {
 
     @InjectMocks
     private ServiceDetailUServiceImpl serviceDetailUService;

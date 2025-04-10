@@ -44,6 +44,15 @@ public class DataLoader implements CommandLineRunner {
                             .citizenID("1234565432")
                             .creditNum("0567567567")
                             .status(true)
+                            .build(),
+                    User.builder()
+                            .userID("0002")
+                            .name("Nguyen Van Ngoc")
+                            .phoneNum("0123456111")
+                            .email("vanngoc@gmail.com")
+                            .citizenID("0123321321")
+                            .creditNum("0111222666")
+                            .status(true)
                             .build()));
         }
 
@@ -57,12 +66,23 @@ public class DataLoader implements CommandLineRunner {
                         .status(true)
                         .build()));
             }
+
+            Optional<User> user2 = userRepository.findById("0002");
+            if (user2.isPresent()) {
+                accountRepository.saveAll(List.of(Account.builder()
+                        .username("customer02")
+                        .password("$2y$10$MG6jaQZk49xYO95xMxt6UO5pk.sA1htpEZppNcKY7iRudengtwzmO")
+                        .user(user2.get())
+                        .status(true)
+                        .build()));
+            }
+            
             Optional<User> admin = userRepository.findById("1001");
-            if (user.isPresent()) {
+            if (admin.isPresent()) {
                 accountRepository.saveAll(List.of(Account.builder()
                         .username("admin")
                         .password("$2y$10$MG6jaQZk49xYO95xMxt6UO5pk.sA1htpEZppNcKY7iRudengtwzmO")
-                        .user(user.get())
+                        .user(admin.get())
                         .status(true)
                         .build()));
             }

@@ -82,7 +82,7 @@ class PlaneServiceTest {
 
         // Assert
         assertEquals(1, result.size());
-        assertEquals(3, result.get(0).getPlaneID());
+        assertEquals("Test03", result.get(0).getPlaneID());
         assertEquals("Boeing 787", result.get(0).getName());
     }
 }
